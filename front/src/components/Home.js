@@ -10,14 +10,20 @@ const Home = () => {
       (entries) => {
         entries.forEach((entry) => {
           const sectionSvgPath = entry.target.querySelectorAll(".svg-path");
+          const sectionTagLine = entry.target.querySelector(".home-tagline");
+          const sectionLinks = entry.target.querySelector(".home-links");
           if (entry.isIntersecting) {
             sectionSvgPath?.forEach((path) => {
               path?.classList.add("animate");
             });
+            sectionTagLine?.classList.add("animate");
+            sectionLinks?.classList.add("animate");
           } else {
             sectionSvgPath?.forEach((path) => {
               path?.classList.remove("animate");
             });
+            sectionTagLine?.classList.remove("animate");
+            sectionLinks?.classList.remove("animate");
           }
         });
       },
