@@ -1,0 +1,162 @@
+.about-me {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    padding-top: 54px;
+    background-color: #f9f9f9;
+    cursor: default;
+    overflow: hidden;
+}
+.about-me-title {
+    transform: translateX(-300%);
+    opacity: 0;
+    transition: transform 0.4s ease-in, opacity 0.4s ease-in;
+}
+.about-me-title.animate {
+    transform: translateX(0);
+    opacity: 1;
+}
+.about-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+.about-description {
+    width: 40%;
+    padding: 20px;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.4s ease-in, opacity 0.4s ease-in;
+}
+.about-description.animate {
+    transform: translateX(0);
+    opacity: 1;
+}
+.about-description img {
+    width: 60%;
+    height: auto;
+    border-radius: 50%;
+}
+.about-description p {
+    font-family: "Ubuntu";
+    font-weight: 500;
+    line-height: 18pt;
+    unicode-bidi: isolate;
+}
+.description-links {
+    color: hsla(182, 96%, 40%, 0.76);
+    text-decoration: none;
+}
+.description-links:hover {
+    color: hsla(182, 96%, 40%, 1.4);
+}
+.about-skills {
+    width: 55%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    gap: 1rem;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.4s ease-in, opacity 0.4s ease-in;
+}
+.about-skills.animate {
+    transform: translateX(0);
+    opacity: 1;
+}
+.skill {
+    width: 80%;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.skill span {
+    width: 120px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.progress-bar {
+    background-color: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    align-self: center;
+    height: 16px;
+    padding: 2px;
+    width: 100%;
+}
+.progress-bar-fill {
+    background-color:  hsla(182, 96%, 40%, 0.76);
+    height: 100%;
+    width: 0%;
+    transition: width 2s ease-in-out;
+    transition-delay: 250ms;
+    position: relative;
+    z-index: 1;
+}
+.progress-bar-fill.animate {
+    width: var(--level);
+}
+
+.progress-bar-fill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(0, 255, 170, 0.3),
+        rgba(0, 200, 27, 0.616)
+    );
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    transition: clip-path 0.6s ease-in-out;
+    z-index: 2; /* Keep it below the progress bar fill */
+}
+
+.skill:hover .progress-bar-fill::before {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+@media screen and (max-width: 816px) {
+    .about-me {
+        height: auto;
+    }
+    .about-content {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: flex-start;
+        width: 100%;
+    }
+    .about-description {
+        width: 100%;
+    }
+    .about-description img {
+        width: 40%;
+        height: auto;
+        border-radius: 50%;
+    }
+    .about-skills {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+}

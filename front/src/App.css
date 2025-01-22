@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  text-align: center;
+  font-family: "Ubuntu";
+  color: #616161;
+  min-width: 375px;
+}
+
+.separator {
+  width: 100px;
+  min-height: 5px;
+  border-radius: 5px;
+  background-color: rgba(97, 97, 97, 1);
+  transform: translateX(300%);
+  opacity: 0;
+  transition: transform 0.4s ease-in, opacity 0.4s ease-in;
+  transition-delay: 0.1s;
+}
+.separator.animate {
+  transform: translateX(0);
+  opacity: 1;
+}
