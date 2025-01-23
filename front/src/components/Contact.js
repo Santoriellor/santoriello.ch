@@ -1,10 +1,12 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import "../styles/Contact.css";
-
 import Footer from "../components/Footer";
+
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const Contact = () => {
   const sectionRef = useRef(null);
+  const { translate } = useContext(LanguageContext);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -43,12 +45,10 @@ const Contact = () => {
 
   return (
     <section id="contact" className="contact" ref={sectionRef}>
-      <h1 className="contact-title">&lt; CONTACT ME &gt;</h1>
+      <h1 className="contact-title">&lt; {translate("contactMe")} &gt;</h1>
       <div className="separator"></div>
       <div className="contact-content">
-        <p className="contact-descr">
-          Have a question or want to work together?
-        </p>
+        <p className="contact-descr">{translate("contactText")}</p>
         <form
           className="contact-form"
           method="POST"
@@ -59,15 +59,25 @@ const Contact = () => {
             name="access_key"
             value="c9e4e021-c095-4eb8-95f2-a93d49403bd6"
           />
-          <input type="text" name="name" placeholder="Name" required />
-          <input type="email" name="email" placeholder="Enter Email" required />
+          <input
+            type="text"
+            name="name"
+            placeholder={translate("contactName")}
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder={translate("contactEmail")}
+            required
+          />
           <textarea
             type="text"
             name="message"
-            placeholder="Your Message"
+            placeholder={translate("contactMsg")}
             required
           ></textarea>
-          <button type="submit">SUBMIT</button>
+          <button type="submit">{translate("contactBtn")}</button>
         </form>
       </div>
       <Footer />
