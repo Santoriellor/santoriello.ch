@@ -36,10 +36,10 @@ jobs:
           VPS_DEPLOY_PATH: ${{ secrets.VPS_DEPLOY_PATH }}
         run:
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H $VPS_HOST >> ~/.ssh/known_hosts
           echo "Deploying to $VPS_USER@$VPS_HOST:$VPS_DEPLOY_PATH"
           rsync -avz --delete -v front/build/ $VPS_USER@$VPS_HOST:$VPS_DEPLOY_PATH
-          ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST 'sudo /bin/systemctl restart nginx'
+          ssh -o -v StrictHostKeyChecking=no $VPS_USER@$VPS_HOST 'sudo /bin/systemctl restart nginx'
           
