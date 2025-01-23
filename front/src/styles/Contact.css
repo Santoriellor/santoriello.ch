@@ -67,6 +67,28 @@
     font-size: 1rem;
     resize: none;
 }
+.contact-form input:invalid:not(:placeholder-shown),
+.contact-form textarea:invalid:not(:placeholder-shown) {
+    border-color: red;
+    background-image: url(../assets/images/redcheck.png);
+}
+.contact-form input:valid:not(:placeholder-shown),
+.contact-form textarea:valid:not(:placeholder-shown) {
+    background-image: url(../assets/images/greencheck.png);
+}
+.contact-form input:invalid:not(:placeholder-shown),
+.contact-form textarea:invalid:not(:placeholder-shown),
+.contact-form input:valid:not(:placeholder-shown),
+.contact-form textarea:valid:not(:placeholder-shown) {
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px);
+}
+.contact-form input:invalid ~ button[type="submit"],
+.contact-form textarea:invalid ~ button[type="submit"] {
+    opacity: .6;
+    pointer-events: none;
+}
 .contact-form textarea {
     min-height: 200px;
 }
