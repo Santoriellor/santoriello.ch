@@ -2,10 +2,40 @@
   box-sizing: border-box;
 }
 
+:root {
+  --background-color: #f9f9f9;
+  --background-menu: #343a40;
+  --text-color: #343a40;
+  --link-color: hsla(182, 96%, 40%, 0.76);
+  --link-hover-color: hsla(182, 96%, 40%, 1.4);
+  --border-color: #dee2e6;
+  --projects-bg-color: white;
+  --form-bg-color: white;
+  --filters-btn-hover-color: white;
+}
+[data-theme="dark"] {
+  --background-color: #4e565f;
+  --background-menu: #343a40;
+  --text-color: #dfdbdb;
+  --link-color: hsla(182, 96%, 70%, 0.8);
+  --link-hover-color: hsla(182, 96%, 70%, 1.4);
+  --border-color: #707070;
+  --projects-bg-color: #343a40;
+  --form-bg-color: #343a40;
+  --filters-btn-hover-color: #343a40;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: "Ubuntu";
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
 #root {
   text-align: center;
-  font-family: "Ubuntu";
-  color: #616161;
   min-width: 375px;
 }
 
@@ -13,7 +43,7 @@
   width: 100px;
   min-height: 5px;
   border-radius: 5px;
-  background-color: rgba(97, 97, 97, 1);
+  background-color: var(--text-color);
   transform: translateX(300%);
   opacity: 0;
   transition: transform 0.4s ease-in, opacity 0.4s ease-in;

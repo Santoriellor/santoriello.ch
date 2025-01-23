@@ -1,40 +1,42 @@
 .dropdown-menu {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    min-width: 375px;
-    background-color: #343a40;
-    color: white;
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
-    z-index: 1000;
-    clip-path: inset(0 0 0 0);
-    transition: clip-path 0.5s ease-in-out;
-    overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  min-width: 375px;
+  background-color: var(--background-menu);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+  padding: 1rem;
+  z-index: 1000;
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.5s ease-in-out;
+  overflow: hidden;
 }
 .dropdown-menu.hidden {
-    clip-path: inset(0 0 54px 0);
+  clip-path: inset(0 0 54px 0);
 }
 .dropdown-menu a {
-    color: white;
-    text-decoration: none;
-    margin: 0 1rem;
-    font-size: 1.2rem;
-    transition: 0.4s ease;
+  color: white;
+  text-decoration: none;
+  margin: 0 1rem;
+  font-size: 1.2rem;
+  transition: 0.4s ease;
 }
 .dropdown-menu a:hover {
-    letter-spacing: 5px;
-    font-weight: bolder;
+  letter-spacing: 5px;
+  font-weight: bolder;
 }
 
 @media screen and (max-width: 500px) {
-    .dropdown-menu a {
-        margin: 0 0.6rem;
-        font-size: 1rem;
-        transition: 0.4s ease;
-    }
-    .dropdown-menu a:hover {
-        letter-spacing: 3px;
-    }
+  .dropdown-menu a {
+    margin: 0 0.6rem;
+    font-size: 1rem;
+    transition: 0.4s ease;
+  }
+  .dropdown-menu a:hover {
+    letter-spacing: 3px;
+  }
 }
