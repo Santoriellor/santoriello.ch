@@ -59,7 +59,7 @@ const translations = {
     myWork: "Projekte",
     myWorkBtn: "Lass es uns sehen!",
     myWorkNoProject: "Kein Projekt entspricht diesem Filter.",
-    contact: "Kontact",
+    contact: "Kontakt",
     contactMe: "Kontaktiere Mich",
     contactText: "Haben Sie eine Frage oder möchten Sie zusammenarbeiten?",
     contactName: "Name",
