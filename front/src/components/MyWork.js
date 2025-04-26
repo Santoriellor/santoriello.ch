@@ -23,7 +23,7 @@ const projects = [
   {
     id: 3,
     name: "Workshop",
-    front: ["HTML", "CSS", "JavaScript"],
+    front: ["HTML", "CSS", "JavaScript", "React"],
     back: ["Python", "Django", "MySQL"],
     url: "/images/projects/workshop.jpg",
     http: "https://workshop.santoriello.ch",
