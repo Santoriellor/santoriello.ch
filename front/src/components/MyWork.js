@@ -12,14 +12,14 @@ const projects = [
     url: "/images/projects/laferme.jpg",
     http: "https://lecanne.santoriello.ch",
   },
-  {
+  /* {
     id: 2,
     name: "Price Comparator",
     front: ["HTML", "CSS", "JavaScript"],
     back: ["Python", "Django", "MySQL"],
     url: "/images/projects/comparator.jpg",
     http: "https://comparator.santoriello.ch",
-  },
+  }, */
   {
     id: 3,
     name: "Workshop",
