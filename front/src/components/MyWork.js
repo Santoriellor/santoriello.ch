@@ -10,7 +10,7 @@ const projects = [
     front: ["HTML", "CSS", "JavaScript", "React"],
     back: ["None required"],
     url: "/images/projects/laferme.jpg",
-    http: "https://lecanne.santoriello.ch",
+    http: "https://website.santoriello.ch",
   },
   /* {
     id: 2,
