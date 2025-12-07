@@ -1,13 +1,22 @@
-version: '3.8'
-
 services:
   frontend:
     build: ./front
     labels:
+      # Enable Traefik
       - "traefik.enable=true"
+
+      # HTTPS router
       - "traefik.http.routers.santoriello-frontend.rule=Host(`santoriello.ch`)"
       - "traefik.http.routers.santoriello-frontend.entrypoints=websecure"
       - "traefik.http.routers.santoriello-frontend.tls.certresolver=le"
+
+      # HTTP → HTTPS redirect router
+      - "traefik.http.routers.santoriello-frontend-http.rule=Host(`santoriello.ch`)"
+      - "traefik.http.routers.santoriello-frontend-http.entrypoints=web"
+      - "traefik.http.routers.santoriello-frontend-http.middlewares=redirect-to-https"
+
+      # Middleware to redirect HTTP → HTTPS
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
     networks:
       - proxy-network
 
