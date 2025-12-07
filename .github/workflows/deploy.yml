@@ -18,26 +18,34 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16  # Use the Node.js version required for your app
+          node-version: 16
 
-      # Install dependencies and build the React app
-      - name: Install dependencies and build
-        working-directory: front
+      - name: Build Docker image
         run: |
-          npm install
-          npm run build
+          docker build -t santoriello-front:latest ./front
 
-      # Deploy the build folder to the VPS
-      - name: Deploy to VPS
+      - name: Copy code to VPS
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
           VPS_DEPLOY_PATH: ${{ secrets.VPS_DEPLOY_PATH }}
-        run: | 
+        run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H $VPS_HOST >> ~/.ssh/known_hosts
-          echo "Deploying to $VPS_USER@$VPS_HOST:$VPS_DEPLOY_PATH"
-          rsync -avz --delete front/build/ $VPS_USER@$VPS_HOST:$VPS_DEPLOY_PATH
+          rsync -avz ./front/ $VPS_USER@$VPS_HOST:$VPS_DEPLOY_PATH/front
+          rsync -avz docker-compose.yml $VPS_USER@$VPS_HOST:$VPS_DEPLOY_PATH/
+
+      - name: Deploy with Docker Compose
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_DEPLOY_PATH: ${{ secrets.VPS_DEPLOY_PATH }}
+        run: |
+          ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "
+            cd $VPS_DEPLOY_PATH &&
+            docker compose build frontend &&
+            docker compose up -d frontend
+          "
