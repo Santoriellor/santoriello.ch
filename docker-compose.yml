@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./front
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.santoriello-frontend.rule=Host(`santoriello.ch`)"
+      - "traefik.http.routers.santoriello-frontend.entrypoints=websecure"
+      - "traefik.http.routers.santoriello-frontend.tls.certresolver=le"
+    networks:
+      - proxy-network
+
+networks:
+  proxy-network:
+    external: true
