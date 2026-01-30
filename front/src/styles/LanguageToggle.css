@@ -1,6 +1,7 @@
 .lang-switcher {
     position: relative;
     font-family: inherit;
+    height: 25px;
 }
 
 .lang-current {
