@@ -49,7 +49,7 @@ const projects = [
 const MyWork = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [rotate, setRotate] = useState(false);
-  const filters = ["All", "React", "Python", "Django", "MySQL"];
+  const filters = ["All", "React", "Angular", "Python", "Django", "Java","SpringBoot", "PHP", "MySQL", "PostgreSQL"];
   const sectionRef = useRef(null);
   const { translate } = useContext(LanguageContext);
 
