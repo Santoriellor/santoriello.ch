@@ -16,6 +16,7 @@
     cursor: pointer;
     font-size: 13px;
     font-weight: 600;
+    height: 100%;
 }
 
 .lang-current:hover {
