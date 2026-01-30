@@ -8,7 +8,7 @@ const translations = {
     aboutText1: "I was a full-stack developer / software tester for ",
     aboutText2: "the French Army",
     aboutText3:
-      " in Paris, France.\nAfter a long break sailing through Europe, I'm coming back to my roots and programming.\nI like responsive and dynamic user interfaces, and intuitive applications.",
+      " in Paris, France.\nAfter a long break sailing through Europe, I'm coming back to my roots and programming.\nAfter completing two Certificates of Advanced Studies and an internship at IBM as a software engineer, I am ready to put my skills at your service.\nI like responsive and dynamic user interfaces, and intuitive applications.",
     aboutTextContact: "Contact me to discuss work opportunity.",
     myWork: "My Work",
     myWorkBtn: "Let's see it!",
@@ -30,7 +30,7 @@ const translations = {
     aboutText1: "J'étais développeur full-stack / testeur de logiciels pour ",
     aboutText2: "l'Armée française",
     aboutText3:
-      " à Paris, France.\nAprès une longue pause à naviguer à travers l'Europe, je reviens à mes racines et à la programmation.\nJ'aime les interfaces utilisateur réactives et dynamiques, ainsi que les applications intuitives.",
+      " à Paris, France.\nAprès une longue pause à naviguer à travers l'Europe, je reviens à mes racines et à la programmation.\n Après 2 Certificates of Advanced Studies et un stage chez IBM en tant qu'ingénieur logiciel, je suis prêt à mettre mes compétences à votre service.\nJ'aime les interfaces utilisateur réactives et dynamiques, ainsi que les applications intuitives.",
     aboutTextContact: "Contactez-moi pour discuter d'opportunités de travail.",
     myWork: "Projets",
     myWorkBtn: "Voyons ça!",
@@ -53,7 +53,7 @@ const translations = {
     aboutText1: "Ich war Full-Stack-Entwickler / Software-Tester für ",
     aboutText2: "die französische Armee",
     aboutText3:
-      " in Paris, Frankreich.\nNach einer langen Pause, in der ich durch Europa gesegelt bin, kehre ich zu meinen Wurzeln und zur Programmierung zurück.\nIch mag responsive und dynamische Benutzeroberflächen sowie intuitive Anwendungen.",
+      " in Paris, Frankreich.\nNach einer langen Pause, in der ich durch Europa gesegelt bin, kehre ich zu meinen Wurzeln und zur Programmierung zurück.\nNach zwei Certificates of Advanced Studies und einem Praktikum bei IBM als Software Engineer bin ich bereit, meine Kompetenzen in den Dienst Ihres Unternehmens zu stellen.\nIch mag responsive und dynamische Benutzeroberflächen sowie intuitive Anwendungen.",
     aboutTextContact:
       "Kontaktieren Sie mich, um über Arbeitsmöglichkeiten zu sprechen.",
     myWork: "Projekte",

@@ -7,13 +7,18 @@ const skills = [
   { name: "HTML", level: 90 },
   { name: "CSS", level: 85 },
   { name: "JavaScript", level: 85 },
-  /* { name: 'TypeScript', level: 80 }, */
+  { name: 'TypeScript', level: 70 },
   { name: "React", level: 75 },
-  { name: "Python", level: 85 },
-  { name: "PHP", level: 70 },
   { name: "Django", level: 70 },
+  { name: "Angular", level: 65 },
+  { name: "Svelte", level: 80 },
+  { name: "Python", level: 85 },
+  { name: "Java", level: 80 },
+  { name: "PHP", level: 75 },
   { name: "MySQL", level: 75 },
+  { name: "PostgreSQL", level: 65 },
   { name: "NGINX", level: 65 },
+  { name: "Docker", level: 65 },
 ];
 
 const AboutMe = () => {
