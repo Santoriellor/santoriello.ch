@@ -54,7 +54,6 @@ export default function LanguageToggle() {
         <div className="lang-switcher" ref={ref}>
             <button className="lang-current" onClick={() => setOpen(!open)}>
                 <span className="flag">{FLAGS[language]}</span>
-                <span className="code">{LANGUAGES[language].label}</span>
                 <span className="arrow">▾</span>
             </button>
 
