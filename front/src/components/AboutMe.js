@@ -4,21 +4,15 @@ import "../styles/AboutMe.css";
 import { LanguageContext } from "../contexts/LanguageContext";
 
 const skills = [
-  { name: "HTML", level: 90 },
-  { name: "CSS", level: 85 },
-  { name: "JavaScript", level: 85 },
-  { name: 'TypeScript', level: 70 },
-  { name: "React", level: 75 },
-  { name: "Django", level: 70 },
+  { name: "HTML/CSS", level: 90 },
+  { name: "JavaScript/Typescript", level: 85 },
+  { name: "React/Svelte", level: 75 },
   { name: "Angular", level: 65 },
-  { name: "Svelte", level: 80 },
-  { name: "Python", level: 85 },
-  { name: "Java", level: 80 },
+  { name: "Django/SpringBoot", level: 70 },
+  { name: "Python, Java", level: 85 },
   { name: "PHP", level: 75 },
-  { name: "MySQL", level: 75 },
-  { name: "PostgreSQL", level: 65 },
-  { name: "NGINX", level: 65 },
-  { name: "Docker", level: 65 },
+  { name: "MySQL/PostgreSQL", level: 75 },
+  { name: "NGINX/Docker/GIT", level: 65 },
 ];
 
 const AboutMe = () => {
