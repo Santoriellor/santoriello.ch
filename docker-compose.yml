@@ -11,6 +11,11 @@ services:
       - "traefik.http.routers.santoriello-frontend.entrypoints=websecure"
       - "traefik.http.routers.santoriello-frontend.tls.certresolver=le"
 
+      # The container listens on 8080, not 80: nginx runs unprivileged and
+      # cannot bind a port below 1024. Without this label Traefik would have
+      # to infer the port and the site would 502.
+      - "traefik.http.services.santoriello-frontend.loadbalancer.server.port=8080"
+
       # security-headers and gzip-compress live in Traefik's file provider
       # (dynamic/middlewares.yml); the @file suffix selects that provider.
       - "traefik.http.routers.santoriello-frontend.middlewares=security-headers@file,gzip-compress@file"
