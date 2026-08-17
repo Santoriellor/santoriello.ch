@@ -3,3 +3,5 @@
 dist
 .env
 .gitkeep
+# JetBrains IDE files - local to one machine, not project configuration
+.idea/
