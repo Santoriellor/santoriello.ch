@@ -5,7 +5,7 @@ import { codeSnippets } from "../data/codeSnippets";
 function getRandomCodeSnippet() {
   const randomIndex = Math.floor(Math.random() * codeSnippets.length);
   return codeSnippets[randomIndex];
-};
+}
 
 const CodeRain = () => {
   const [drops, setDrops] = useState([]);
@@ -15,36 +15,39 @@ const CodeRain = () => {
   // Create rain drops
   useEffect(() => {
     const createRainDrop = () => {
-        setDrops((prevDrops) => {
-            if (prevDrops.length >= 20) {
-              // Remove the oldest drop when the limit is reached
-              return [...prevDrops.slice(1), {
-                id: Math.random(),
-                char: getRandomCodeSnippet(),
-                left: Math.random() * window.innerWidth,
-                top: -50,
-                fontSize: Math.random() * 12 + 6,
-                speed: Math.random() * 1 + 0.5,
-                brightness: Math.random() * 0.5 + 0.1,
-                orient: Math.random() * 360,
-              }];
-            }
-            // Add a new drop if the limit isn't reached
-            return [
-              ...prevDrops,
-              {
-                id: Math.random(),
-                char: getRandomCodeSnippet(),
-                left: Math.random() * window.innerWidth,
-                top: -50,
-                fontSize: Math.random() * 12 + 6,
-                speed: Math.random() * 1 + 0.5,
-                brightness: Math.random() * 0.5 + 0.1,
-                orient: Math.random() * 360,
-              },
-            ];
-          });
-        };
+      setDrops((prevDrops) => {
+        if (prevDrops.length >= 20) {
+          // Remove the oldest drop when the limit is reached
+          return [
+            ...prevDrops.slice(1),
+            {
+              id: Math.random(),
+              char: getRandomCodeSnippet(),
+              left: Math.random() * window.innerWidth,
+              top: -50,
+              fontSize: Math.random() * 12 + 6,
+              speed: Math.random() * 1 + 0.5,
+              brightness: Math.random() * 0.5 + 0.1,
+              orient: Math.random() * 360,
+            },
+          ];
+        }
+        // Add a new drop if the limit isn't reached
+        return [
+          ...prevDrops,
+          {
+            id: Math.random(),
+            char: getRandomCodeSnippet(),
+            left: Math.random() * window.innerWidth,
+            top: -50,
+            fontSize: Math.random() * 12 + 6,
+            speed: Math.random() * 1 + 0.5,
+            brightness: Math.random() * 0.5 + 0.1,
+            orient: Math.random() * 360,
+          },
+        ];
+      });
+    };
 
     const interval = setInterval(createRainDrop, 300);
 
@@ -82,7 +85,7 @@ const CodeRain = () => {
         prevDrops.map((drop) => ({
           ...drop,
           top: drop.top + drop.speed,
-        }))
+        })),
       );
     };
 
@@ -102,14 +105,15 @@ const CodeRain = () => {
         // Calculate the distance to the mouse if mouse is in the viewport
         const distance = isMouseInViewport
           ? Math.sqrt(
-              Math.pow(mousePos.x - drop.left, 2) + Math.pow(mousePos.y - drop.top, 2)
+              Math.pow(mousePos.x - drop.left, 2) +
+                Math.pow(mousePos.y - drop.top, 2),
             )
           : 0.5; // No distance when mouse is out
 
         // Adjust brightness based on distance or keep it constant
         const brightness = isMouseInViewport
           ? Math.max(1 - distance / 300, 0)
-          : drop.brightness // Keep brightness constant when mouse is out
+          : drop.brightness; // Keep brightness constant when mouse is out
 
         return (
           <div

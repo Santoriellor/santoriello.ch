@@ -6,7 +6,7 @@ const renderContact = () =>
   render(
     <LanguageProvider>
       <Contact />
-    </LanguageProvider>
+    </LanguageProvider>,
   );
 
 beforeEach(() => {
@@ -39,7 +39,7 @@ test("name, email and message are all required", () => {
   const { container } = renderContact();
   const fields = [
     ...container.querySelectorAll(
-      "input[type=text], input[type=email], textarea"
+      "input[type=text], input[type=email], textarea",
     ),
   ].map((f) => [f.tagName, f.getAttribute("name"), f.hasAttribute("required")]);
   expect(fields).toEqual([
@@ -53,7 +53,7 @@ test("the email field uses the email input type", () => {
   const { container } = renderContact();
   expect(container.querySelector('input[name="email"]')).toHaveAttribute(
     "type",
-    "email"
+    "email",
   );
 });
 

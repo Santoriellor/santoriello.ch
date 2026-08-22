@@ -8,7 +8,9 @@ body {
   font-family: "Ubuntu";
   margin: 0;
   padding: 0;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
   /* Moved from the deleted src/index.css, which contributed nothing else. */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

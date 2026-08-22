@@ -6,7 +6,7 @@ const renderAboutMe = () =>
   render(
     <LanguageProvider>
       <AboutMe />
-    </LanguageProvider>
+    </LanguageProvider>,
   );
 
 beforeEach(() => {
@@ -16,7 +16,7 @@ beforeEach(() => {
 test("all nine skills render, in order, with their levels", () => {
   const { container } = renderAboutMe();
   const names = [...container.querySelectorAll(".skill span")].map(
-    (s) => s.textContent
+    (s) => s.textContent,
   );
   expect(names).toEqual([
     "HTML/CSS",
@@ -30,8 +30,8 @@ test("all nine skills render, in order, with their levels", () => {
     "NGINX/Docker/GIT",
   ]);
 
-  const levels = [...container.querySelectorAll(".progress-bar-fill")].map((d) =>
-    d.style.getPropertyValue("--level")
+  const levels = [...container.querySelectorAll(".progress-bar-fill")].map(
+    (d) => d.style.getPropertyValue("--level"),
   );
   expect(levels).toEqual([
     "90%",
@@ -50,7 +50,7 @@ test("the portrait points at the public image", () => {
   const { container } = renderAboutMe();
   expect(container.querySelector("img")).toHaveAttribute(
     "src",
-    "/images/me.png"
+    "/images/me.png",
   );
 });
 
@@ -58,7 +58,7 @@ test("the portrait has real, translated alt text", () => {
   const { container } = renderAboutMe();
   expect(container.querySelector("img")).toHaveAttribute(
     "alt",
-    "Portrait of Rémy Santoriello"
+    "Portrait of Rémy Santoriello",
   );
 });
 
@@ -67,6 +67,6 @@ test("the army link points at the public STAT page", () => {
   const link = container.querySelector(".description-links");
   expect(link).toHaveAttribute(
     "href",
-    "https://www.defense.gouv.fr/terre/section-technique-larmee-terre-stat"
+    "https://www.defense.gouv.fr/terre/section-technique-larmee-terre-stat",
   );
 });

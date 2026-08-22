@@ -91,14 +91,18 @@
        is unchanged. */
     clip-path: inset(0 0 100% 0);
     visibility: hidden;
-    transition: clip-path 0.4s ease-in-out, visibility 0s linear 0.4s;
+    transition:
+      clip-path 0.4s ease-in-out,
+      visibility 0s linear 0.4s;
     z-index: 1000;
     overflow: visible;
   }
   .dropdown-links.open {
     clip-path: inset(0 0 0 0);
     visibility: visible;
-    transition: clip-path 0.4s ease-in-out, visibility 0s linear 0s;
+    transition:
+      clip-path 0.4s ease-in-out,
+      visibility 0s linear 0s;
   }
   .dropdown-links a {
     width: 100%;

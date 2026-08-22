@@ -14,7 +14,7 @@ const renderApp = () =>
   render(
     <LanguageProvider>
       <App />
-    </LanguageProvider>
+    </LanguageProvider>,
   );
 
 beforeEach(() => {
@@ -50,9 +50,9 @@ test("the page has one main landmark wrapping the four sections", () => {
   const { container } = renderApp();
   const main = container.querySelector("main");
   expect(main).not.toBeNull();
-  expect([...main.querySelectorAll(":scope > section")].map((s) => s.id)).toEqual(
-    ["home", "about-me", "my-work", "contact"]
-  );
+  expect(
+    [...main.querySelectorAll(":scope > section")].map((s) => s.id),
+  ).toEqual(["home", "about-me", "my-work", "contact"]);
   expect(container.querySelectorAll("h1")).toHaveLength(4);
 });
 

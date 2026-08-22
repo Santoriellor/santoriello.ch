@@ -37,7 +37,7 @@ const MyWork = () => {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     if (sectionRef.current) {
@@ -68,7 +68,7 @@ const MyWork = () => {
       : projects.filter(
           (p) =>
             (p.front && p.front.includes(activeFilter)) ||
-            (p.back && p.back.includes(activeFilter))
+            (p.back && p.back.includes(activeFilter)),
         );
 
   return (

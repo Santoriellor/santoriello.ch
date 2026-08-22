@@ -11,7 +11,7 @@ test("the menu is closed until the trigger is clicked", () => {
   const { container } = render(
     <LanguageProvider>
       <LanguageToggle />
-    </LanguageProvider>
+    </LanguageProvider>,
   );
   expect(container.querySelector(".lang-menu")).toBeNull();
 
@@ -25,7 +25,7 @@ test("the trigger names the current language and announces the menu state", () =
   const { container } = render(
     <LanguageProvider>
       <LanguageToggle />
-    </LanguageProvider>
+    </LanguageProvider>,
   );
   const trigger = screen.getByRole("button", { name: "Language: English" });
   expect(trigger).toHaveAttribute("aria-expanded", "false");
@@ -35,7 +35,7 @@ test("the trigger names the current language and announces the menu state", () =
   expect(trigger).toHaveAttribute("aria-expanded", "true");
   expect(container.querySelector(".flag svg")).toHaveAttribute(
     "aria-hidden",
-    "true"
+    "true",
   );
 });
 
@@ -46,18 +46,18 @@ test("choosing a language re-renders the page copy and persists the choice", () 
         <LanguageToggle />
         <AboutMe />
       </div>
-    </LanguageProvider>
+    </LanguageProvider>,
   );
 
   expect(container.querySelector(".about-me-title").textContent).toBe(
-    "< About >"
+    "< About >",
   );
 
   fireEvent.click(container.querySelector(".lang-current"));
   fireEvent.click(screen.getByText("Français"));
 
   expect(container.querySelector(".about-me-title").textContent).toBe(
-    "< A propos >"
+    "< A propos >",
   );
   expect(localStorage.getItem("language")).toBe("fr");
 });

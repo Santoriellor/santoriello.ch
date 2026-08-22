@@ -60,5 +60,5 @@ export const codeSnippets = [
   "VARCHAR(100);",
   "COUNT(*)",
   "DROP TABLE",
-  "DESCRIBE users;"
+  "DESCRIBE users;",
 ];

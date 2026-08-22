@@ -38,14 +38,14 @@ export const projects = [
     url: "/images/projects/sir.jpg",
     http: "https://www.defense.gouv.fr/terre/section-technique-larmee-terre-stat/",
   },
-    {
-        id: 5,
-        name: "Space Invader",
-        front: ["Typescript", "Angular"],
-        back: ["Java", "SpringBoot", "PostgreSQL"],
-        url: "/images/projects/space-multi.jpg",
-        http: "https://simulti.santoriello.ch/",
-    },
+  {
+    id: 5,
+    name: "Space Invader",
+    front: ["Typescript", "Angular"],
+    back: ["Java", "SpringBoot", "PostgreSQL"],
+    url: "/images/projects/space-multi.jpg",
+    http: "https://simulti.santoriello.ch/",
+  },
 ];
 
 /** "All" is special-cased in MyWork; the rest are matched against front/back. */

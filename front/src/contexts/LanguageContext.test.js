@@ -20,7 +20,7 @@ const renderProbe = () =>
   render(
     <LanguageProvider>
       <Probe />
-    </LanguageProvider>
+    </LanguageProvider>,
   );
 
 beforeEach(() => {

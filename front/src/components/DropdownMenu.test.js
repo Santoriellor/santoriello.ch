@@ -6,7 +6,7 @@ const renderMenu = () =>
   render(
     <LanguageProvider>
       <DropdownMenu />
-    </LanguageProvider>
+    </LanguageProvider>,
   );
 
 beforeEach(() => {
@@ -35,17 +35,17 @@ test("the burger opens and closes the link list", () => {
   const { container } = renderMenu();
   const burger = container.querySelector(".toggle-burger");
   expect(container.querySelector(".dropdown-links").className).toBe(
-    "dropdown-links"
+    "dropdown-links",
   );
 
   fireEvent.click(burger);
   expect(container.querySelector(".dropdown-links").className).toBe(
-    "dropdown-links open"
+    "dropdown-links open",
   );
 
   fireEvent.click(burger);
   expect(container.querySelector(".dropdown-links").className).toBe(
-    "dropdown-links"
+    "dropdown-links",
   );
 });
 
@@ -54,7 +54,7 @@ test("clicking a link closes the open menu", () => {
   fireEvent.click(container.querySelector(".toggle-burger"));
   fireEvent.click(screen.getByRole("link", { name: "Home" }));
   expect(container.querySelector(".dropdown-links").className).toBe(
-    "dropdown-links"
+    "dropdown-links",
   );
 });
 

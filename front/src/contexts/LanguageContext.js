@@ -7,7 +7,7 @@ export const LanguageContext = createContext();
 // Create the provider component
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(
-    localStorage.getItem("language") || "en"
+    localStorage.getItem("language") || "en",
   );
 
   // Function to update the language and save it to local storage

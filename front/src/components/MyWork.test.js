@@ -7,12 +7,12 @@ const renderMyWork = () =>
   render(
     <LanguageProvider>
       <MyWork />
-    </LanguageProvider>
+    </LanguageProvider>,
   );
 
 const cardNames = (container) =>
   [...container.querySelectorAll(".project-description h3")].map(
-    (h) => h.textContent
+    (h) => h.textContent,
   );
 
 beforeEach(() => {
@@ -32,7 +32,7 @@ test("four projects render by default, in order", () => {
 test("the ten filter buttons are offered, in order", () => {
   const { container } = renderMyWork();
   const labels = [...container.querySelectorAll(".filter-button .default")].map(
-    (d) => d.textContent
+    (d) => d.textContent,
   );
   expect(labels).toEqual([
     "All",
@@ -93,7 +93,7 @@ test("the empty-filter message renders the translated copy, not the raw key", ()
   try {
     const { container } = renderMyWork();
     expect(container.querySelector(".no-projects").textContent).toBe(
-      "No projects match this filter."
+      "No projects match this filter.",
     );
   } finally {
     projects.push(...saved);

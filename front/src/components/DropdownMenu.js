@@ -31,7 +31,7 @@ const DropdownMenu = () => {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     const homeSection = document.getElementById("home");
