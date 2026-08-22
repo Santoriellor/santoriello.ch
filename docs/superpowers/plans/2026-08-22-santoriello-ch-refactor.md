@@ -123,7 +123,7 @@
 
 **Interfaces:**
 - Consumes: nothing.
-- Produces: `docs/decisions/0004-deferred-findings.md`, appended to by Tasks 6, 8, 10, 11 and 13.
+- Produces: `docs/decisions/0004-deferred-findings.md`, appended to by Tasks 6, 8, 9, 10, 11 and 13.
 
 - [ ] **Step 1: Create the branch**
 
@@ -2594,6 +2594,48 @@ git commit -m "chore: drop four unused dependencies, 3.6 MB of unreferenced asse
 ```
 
 ### Task 12: Formatter sweep
+
+> **ADDED BEFORE EXECUTION — gate the formatters in CI.**
+>
+> As written this task adopts Prettier and ESLint but never runs them anywhere
+> automatic, so formatting drifts back and the sweep's value decays. The
+> space-multi cycle finished with exactly that gap named at its final review; the
+> workshop plan closed it and its gates passed on their first real deploy.
+>
+> So in the commit that records `.git-blame-ignore-revs`, also add two steps to
+> the **`test` job** of `.github/workflows/deploy.yml`, after the existing
+> dependency install:
+>
+> ```yaml
+>       - name: Check formatting
+>         working-directory: front
+>         run: npx prettier --check .
+>
+>       - name: Lint
+>         working-directory: front
+>         run: npx eslint src --max-warnings 0
+> ```
+>
+> Adjust paths and flags to match what this repo's config actually needs — the
+> point is the gate, not the exact invocation.
+>
+> **Three constraints:**
+>
+> 1. **Run both locally and confirm they pass before committing.** A gate that
+>    fails on its first push blocks deployment of a live site, and this is the
+>    commit that makes failure blocking.
+> 2. **Touch only the `test` job.** The `deploy` job's rsync line carries
+>    `--delete` on the `./front/` transfer, added earlier today to fix a broken
+>    deploy. The second rsync, whose source is the single file
+>    `docker-compose.yml`, must never gain `--delete` — its source is one file, so
+>    rsync would treat everything else in the destination as extraneous and delete
+>    it, `front/` included.
+> 3. **Do not add `plugin:jsx-a11y/recommended`** or any rule set that turns
+>    existing warnings into errors. The plan already forbids this: `CI=true`
+>    makes `react-scripts build` treat warnings as errors, and smuggling a
+>    deploy-blocking rule change into a formatting commit is exactly the kind of
+>    surprise this structure exists to prevent.
+
 
 Deliberately last: running it earlier would mix reformatting into every review
 diff above. (Spec D4)
