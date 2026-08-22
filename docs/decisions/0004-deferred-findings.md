@@ -15,40 +15,39 @@ the finding isn't lost between now and then.
 ## Findings
 
 - **The staggered project animation is already dead.**
-  `front/src/styles/MyWork.css:131-144` sets `transition-delay` on
+  `front/src/styles/MyWork.css:111-124` sets `transition-delay` on
   `.project:nth-child(1)` through `.project:nth-child(4)` (0s, 0.1s, 0.2s,
-  0.3s), but `.project` at line 146 then sets the `transition` shorthand,
+  0.3s), but `.project` at line 126 then sets the `transition` shorthand,
   which resets `transition-delay` back to its default (`0s`) because the
   shorthand always sets every sub-property it doesn't mention. The four
   cards therefore animate together today, not staggered. Restoring the
   stagger is a visible change and is out of scope for this cycle.
 
 - **`font-family: "Ubuntu"` names a font that is never loaded.**
-  `front/src/App.css:33` sets it on `body` with no fallback stack, and there
+  `front/src/App.css:8` sets it on `body` with no fallback stack, and there
   is no `@font-face` rule and no web-font `<link>` in
   `front/public/index.html` (confirmed: no `@font-face`, no
   `fonts.googleapis.com` reference, no matching `<link>`). Visitors without
-  Ubuntu installed locally get the browser default font. This also makes
-  `front/src/index.css:3`'s system font stack
-  (`-apple-system, BlinkMacSystemFont, 'Segoe UI', ...`) dead code in
-  practice: it's defined on `body` too, but `App.css` is imported after
-  `index.css` and its `font-family: "Ubuntu"` declaration wins. Adding a
-  fallback stack to the `Ubuntu` declaration would change the rendered
-  typeface on most visitors' machines (from the OS default they get today to
-  whatever the fallback stack resolves to), so it is not done here.
+  Ubuntu installed locally get the browser default font. Task 9 deleted
+  `front/src/index.css` (its two font-smoothing declarations moved into
+  `App.css:15-16`; its system font-stack fallback
+  `-apple-system, BlinkMacSystemFont, 'Segoe UI', ...` was **not** carried
+  over — it is simply gone, not shadowed). Adding a fallback stack to the
+  `Ubuntu` declaration would change the rendered typeface on most visitors'
+  machines (from the OS default they get today to whatever the fallback
+  stack resolves to), so it is not done here.
 
 - **The empty-filter state is unreachable.** Every one of the ten filters
-  defined at `front/src/components/MyWork.js:52` (`All` plus nine tech tags)
+  defined at `front/src/data/projects.js:52-63` (`All` plus nine tech tags)
   matches at least one of the four projects, so `filteredProjects.length ===
-  0` never happens and `.no-projects` never renders. Task 6 still fixes the
-  broken translation key behind it — `MyWork.js:161` reads
-  `translate("myWorkNoProjects")` (plural) while every dictionary in
-  `front/src/assets/translations.js` defines the key as `myWorkNoProject`
-  (singular, e.g. line 15 for `en`) — even though the fixed string cannot
-  currently be triggered by any filter combination in the current project
-  list.
+  0` never happens and `.no-projects` never renders
+  (`front/src/components/MyWork.js:119-121`). Task 6 already fixed the
+  translation key behind it (`MyWork.js:120` now reads
+  `translate("myWorkNoProjects")`, matching the plural key every dictionary
+  in `front/src/assets/translations.js` defines), but the fixed string still
+  cannot be triggered by any filter combination in the current project list.
 
-- **`<footer>` is not a `contentinfo` landmark.** `front/src/components/Contact.js:83`
+- **`<footer>` is not a `contentinfo` landmark.** `front/src/components/Contact.js:102`
   renders `<Footer />` inside `<section id="contact">` rather than as a
   direct child of `<body>`, so assistive tech does not expose it as the
   page's `contentinfo` landmark. Hoisting it out would break
@@ -56,8 +55,8 @@ the finding isn't lost between now and then.
   depends on being a flex child of `.contact` to push itself to the bottom
   of that section. This is a layout change and is out of scope.
 
-- **Four `<h1>` elements on one page**: `front/src/components/Home.js:53`,
-  `front/src/components/AboutMe.js:66`, `front/src/components/MyWork.js:119`,
+- **Four `<h1>` elements on one page**: `front/src/components/Home.js:54`,
+  `front/src/components/AboutMe.js:55`, `front/src/components/MyWork.js:76`,
   `front/src/components/Contact.js:48`. Task 8 fixes the first one's missing
   accessible name but does not demote the other three to `<h2>`, because
   none of the four carry an explicit `font-size` in their stylesheets —
@@ -72,46 +71,32 @@ the finding isn't lost between now and then.
   configuration is only touched during the retirement cycle (estate spec
   §6), not during an individual project's refactor.
 
-- **Three defects present in the current code, to be fixed by later tasks**
-  in this plan (recorded here as findings, not yet acted on):
-  - `front/src/components/CodeRain.js:157` calls
-    `cancelAnimationFrame(animate)`, passing the callback function where the
-    frame id returned by `requestAnimationFrame` belongs. Because the id was
-    never captured, this cancel call has no effect, and the animation loop
-    (`requestAnimationFrame(animate)` calling itself on every frame) keeps
-    running after the component unmounts.
-  - `front/src/components/MyWork.js:161` reads translation key
-    `myWorkNoProjects`, while `front/src/assets/translations.js` defines
-    `myWorkNoProject` (singular) in all three dictionaries. `translate`'s
-    key-fallback means the mismatch currently renders the literal string
-    `myWorkNoProjects` if this state is ever reached — see the unreachable
-    empty-filter finding above for why it hasn't been observed live.
-  - `front/src/reportWebVitals.js:3-8` imports the web-vitals 2.x API
-    (`getCLS`, `getFID`, `getFCP`, `getLCP`, `getTTFB`) against
-    `web-vitals@^4.2.4` (`front/package.json`). None of those five names
-    exist in the installed package: `node_modules/web-vitals/dist/modules/index.d.ts`
-    exports only `onCLS`, `onFCP`, `onINP`, `onLCP`, `onTTFB` — `onCLS`,
-    `onFCP`, `onLCP` and `onTTFB` are the renamed equivalents (the `get*` →
-    `on*` rename landed in v3), and `onINP` has no `get*`-era counterpart at
-    all, because FID was retired and replaced by INP as a Core Web Vital,
-    not renamed. The five named imports in `reportWebVitals.js` all resolve
-    to `undefined` at runtime against v4, so none of the five metrics are
-    ever actually reported — the `reportWebVitals()` call in
-    `front/src/index.js:21` silently does nothing.
+> Three defects were flagged here during Phase B characterization
+> (`CodeRain`'s `cancelAnimationFrame(animate)` passing a callback instead of
+> the captured frame id; `MyWork`'s translation key mismatch,
+> `myWorkNoProjects` vs. the dictionaries' `myWorkNoProject`; and
+> `reportWebVitals.js`'s five web-vitals 2.x `get*` imports resolving to
+> `undefined` against the installed v4 package) as findings for later tasks
+> to act on. All three are now fixed — Task 6 fixed the first two
+> (`CodeRain.js`'s effect now captures `frameId` and cancels that; the
+> translation key now matches in all three dictionaries) and Task 11 fixed
+> the third (`reportWebVitals.js` now imports the v4 `on*` names, `onINP` in
+> place of the retired `getFID`). None of the three belong in this document
+> any more; see the Task 13 handover report for the test covering each.
 
-- **A filter button's doubled accessible name has a space in it, not a bare
-  concatenation.** `front/src/components/MyWork.js:132-133` renders each
-  filter label twice, in a `.text-layer.default` and a `.text-layer.hover`
-  sibling `<div>` inside the `<button>`. Task 4's brief assumed the resulting
-  accessible name would be the label glued to itself (e.g. `"AngularAngular"`),
-  but the accessible-name computation (via `@testing-library/dom`'s
-  `dom-accessibility-api`) inserts a space between text drawn from separate
-  block-level elements, so the actual name is `"Angular Angular"` (space
-  between the two copies) for every filter button, including `"All All"`.
-  `front/src/components/MyWork.test.js` was written against the verified
-  space-separated names rather than the brief's assumed bare-concatenation
-  form. Task 8, which hides the duplicate `.text-layer` from assistive
-  technology, will update these queries regardless of the exact spacing.
+- **A filter button's doubled `.text-layer` no longer doubles its accessible
+  name — Task 8 already fixed this.** `front/src/components/MyWork.js:88-89`
+  still renders each filter label twice, in a `.text-layer.default` and a
+  `.text-layer.hover` sibling `<div>` inside the `<button>`, but the hover
+  copy now carries `aria-hidden="true"`, so it drops out of the
+  accessible-name computation entirely: the name is just `"Angular"` (or
+  `"All"`), not `"Angular Angular"`. Phase B's characterization tests
+  (`front/src/components/MyWork.test.js`) were originally written against
+  the pre-fix, space-separated names (`dom-accessibility-api` inserts a
+  space between text drawn from separate block-level elements — verified
+  against jsdom, not assumed), and were updated to the single-copy names
+  once Task 8 landed; `getByRole("button", { name: "Angular" })` is what the
+  suite asserts today.
 
 - **`CodeRain` re-renders up to twenty nodes on every `mousemove`.**
   `front/src/components/CodeRain.js` also attaches `mousemove` and `mouseout`
@@ -128,6 +113,18 @@ the finding isn't lost between now and then.
   `theme_color` (`#000000`) was left untouched because `index.html:7`
   declares the identical value in its `<meta name="theme-color">` tag, and
   editing one without the other would make them disagree.
+
+- **The brand accent fails WCAG AA in every context it is used in.** The
+  accent, `hsl(182, 96%, 40%)`, measures roughly 2.11:1 against the light
+  page background on its own, and every translucent use built from it fails
+  4.5:1 (or 3:1 for large text/borders) in turn: `.home-btn` **1.44:1**,
+  `.description-links` **1.81:1**, `.project-button` **1.88:1**, the active
+  filter button's hover text-layer **1.90:1**, the dark-theme `--link-color`
+  **4.35:1**. Fixing this means choosing a new accent colour — a visual
+  redesign, out of scope per estate spec §7. See
+  `docs/decisions/0003-colour-contrast.md` for the full seven-row
+  measurement table and the two rules (body text, the focus ring) that were
+  deliberately built to avoid the accent for this reason.
 
 - **`--accent`, `--accent-strong` and `--accent-faint` deliberately do not
   switch with the theme, while `--link-color` does.** That is what the code

@@ -6,7 +6,8 @@ Accepted.
 
 ## Context, with the measured numbers
 
-`front/src/components/Home.js` is 100 lines and 1,197,556 bytes on disk
+At the time this ADR was drafted, `front/src/components/Home.js` was 100
+lines and 1,197,556 bytes on disk
 (the file uses CRLF line endings; counted with one line terminator per line
 instead of two, that is 1,197,456 characters). It contains one `<svg>` with
 **three** `<path>` elements — not five. (A naive `grep -o 'd="[^"]*"'`
@@ -29,13 +30,22 @@ raw, 330.18 kB gzipped (verified by building the project locally with
 `react-scripts build`). The path data is 1,194,631 ÷ 1,464,065 = 81.6% of
 the raw bundle.
 
-An identical asset already exists, unreferenced, at
-`front/public/images/santoriello.svg` (1,194,993 bytes, confirmed on disk).
+An identical asset existed, unreferenced, at
+`front/public/images/santoriello.svg` (1,194,993 bytes, confirmed on disk at
+the time); Task 11 deleted it as part of the unreferenced-asset cleanup, so
+it no longer sits alongside the inline copy.
 
 ## Decision
 
 Task 7 moves this markup into `front/src/components/NameLogo.js` unchanged.
 The payload is not reduced in this cycle.
+
+**Post-move confirmation (Task 13):** the move landed as decided.
+`front/src/components/NameLogo.js` is now 49 lines and carries the same
+three `d=` path attributes; `front/src/components/Home.js` dropped to 71
+lines and imports `NameLogo` (`<NameLogo />` inside an `<h1>`). The 1.19 MB
+payload and the 330 kB gzipped bundle figures below are unchanged by the
+move — moving markup between files doesn't change what ships.
 
 ## Consequences and the reason
 

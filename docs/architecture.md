@@ -20,26 +20,30 @@ four full-height sections stacked vertically, navigated by anchor links.
 </React.StrictMode>
 ```
 
-`front/src/App.js` renders exactly five children, in this order: `DropdownMenu`,
-`Home`, `AboutMe`, `MyWork`, `Contact`. `Footer` is **not** one of them — it is
-rendered by `Contact` itself, at `front/src/components/Contact.js:83`, as the
-last element inside `<section id="contact">`. There is one `<footer>` element
-on the page and it lives nested inside the contact section, not as a sibling
-of it.
+`front/src/App.js` renders `DropdownMenu` and one `<main>` landmark wrapping
+`Home`, `AboutMe`, `MyWork`, `Contact`, in that order. `Footer` is **not** one
+of `App`'s children — it is rendered by `Contact` itself, at
+`front/src/components/Contact.js:102`, as the last element inside
+`<section id="contact">`. There is one `<footer>` element on the page and it
+lives nested inside the contact section, not as a sibling of it.
 
-`Home` additionally renders `CodeRain` (an animated background), and
-`DropdownMenu` renders `ThemeToggle` and `LanguageToggle`.
+`Home` additionally renders `CodeRain` (an animated background) and
+`NameLogo` (the wordmark, its own component since Task 7 — see
+`docs/decisions/0002-inline-wordmark-svg.md`), and `DropdownMenu` renders
+`ThemeToggle` and `LanguageToggle`.
 
 ## Navigation
 
-**There is no router.** `react-router-dom@^7.1.2` is declared in
-`front/package.json:14` and is imported by no file in `front/src`. Navigation
-is four `<a href="#home">` / `#about-me` / `#my-work` / `#contact` links inside
-`DropdownMenu` (`front/src/components/DropdownMenu.js:54-65`); the browser's
-native fragment-scroll does the rest.
+**There is no router.** `react-router-dom` used to be declared in
+`front/package.json` but was imported by no file in `front/src`; Task 11
+removed it along with three other unused dependencies and 3.6 MB of
+unreferenced assets. Navigation is four `<a href="#home">` / `#about-me` /
+`#my-work` / `#contact`
+links inside `DropdownMenu` (`front/src/components/DropdownMenu.js:57-66`);
+the browser's native fragment-scroll does the rest.
 
 `document.getElementById` appears in three places
-(`front/src/components/Home.js:36`, `front/src/components/DropdownMenu.js:37`,
+(`front/src/components/Home.js:37`, `front/src/components/DropdownMenu.js:37`,
 and `front/src/index.js:9` for the React root) but in every case it is used to
 grab a section's own root node so its `IntersectionObserver` can watch it —
 none of these calls drive scrolling. There is no `window.scrollTo` call
@@ -77,7 +81,12 @@ and mirrors the same value into `localStorage.theme` via
 falling back to `window.matchMedia("(prefers-color-scheme: dark)")` when
 nothing is stored. Every themed colour in the app is a CSS custom property
 defined once on `:root` and overridden under `[data-theme="dark"]` in
-`front/src/App.css:5-28` — components never branch on theme in JavaScript.
+`front/src/styles/tokens.css:13-37` — components never branch on theme in
+JavaScript. `tokens.css` also defines a third, non-theme-switched `:root`
+block (`--accent`, `--accent-strong`, `--accent-faint`, `--on-dark`,
+`--reveal-transition`, `--section-top-padding`); see
+`docs/decisions/0004-deferred-findings.md` for why the accent tokens
+deliberately do not switch while `--link-color` does.
 
 `LanguageContext` (`front/src/contexts/LanguageContext.js`) holds `language`,
 `changeLanguage` and `translate`. `language` is initialised from

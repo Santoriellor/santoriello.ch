@@ -43,7 +43,7 @@ going through GitHub Actions.
 The site sends nothing itself — the browser posts straight to Web3Forms
 (`docs/technical.md`), so there is no outbound mail step in this repository
 to debug. If mail stops arriving, check the Web3Forms dashboard for the
-access key at `front/src/components/Contact.js:60` — quota, a blocked
+access key at `front/src/components/Contact.js:62` — quota, a blocked
 domain, or spam filtering on Web3Forms' side — before touching this
 repository. A code change here cannot fix a delivery problem on Web3Forms'
 side.
