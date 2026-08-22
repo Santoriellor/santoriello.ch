@@ -120,3 +120,12 @@ the finding isn't lost between now and then.
   cleaned up correctly, so it is not a leak, but it is the most expensive
   thing on the page. Throttling it is a performance change, and performance
   tuning is out of scope for this cycle (estate spec §7).
+
+- **`--accent`, `--accent-strong` and `--accent-faint` deliberately do not
+  switch with the theme, while `--link-color` does.** That is what the code
+  did before this cycle: `Footer.css` and `Home.css` hard-coded the
+  light-theme accent, so the footer's social-icon hover and the home buttons
+  keep `hsl(182, 96%, 40%)` even in dark mode, while everything using
+  `--link-color` moves to `hsl(182, 96%, 70%)`. Unifying them is a visible
+  change to the dark theme and belongs with the palette decision recorded in
+  ADR `0003`.

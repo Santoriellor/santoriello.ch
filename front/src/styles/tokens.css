@@ -1,0 +1,54 @@
+/*
+ * Every colour literal and every shared timing in this project lives here.
+ *
+ * The tokens under :root and [data-theme="dark"] are theme-switched by
+ * ThemeToggle, which sets data-theme on <html>. The tokens in the third block
+ * are NOT theme-switched: they hold the literal values that were hard-coded in
+ * Footer.css and Home.css, and those two files render on backdrops that do not
+ * change with the theme (the #343a40 navbar bar and the black CodeRain
+ * backdrop). Switching them with the theme would change what the site looks
+ * like, which this task must not do.
+ * See docs/decisions/0003-colour-contrast.md before changing any of these.
+ */
+:root {
+  --background-color: #f9f9f9;
+  --background-menu: #343a40;
+  --menu-link-color: #dfdbdb;
+  --text-color: #343a40;
+  --link-color: hsla(182, 96%, 40%, 0.76);
+  --link-hover-color: hsla(182, 96%, 40%, 1.4);
+  --border-color: #dee2e6;
+  --projects-bg-color: white;
+  --form-bg-color: white;
+  --filters-btn-hover-color: white;
+}
+
+[data-theme="dark"] {
+  --background-color: #4e565f;
+  --background-menu: #343a40;
+  --menu-link-color: #dfdbdb;
+  --text-color: #dfdbdb;
+  --link-color: hsla(182, 96%, 70%, 0.8);
+  --link-hover-color: hsla(182, 96%, 70%, 1.4);
+  --border-color: #707070;
+  --projects-bg-color: #343a40;
+  --form-bg-color: #343a40;
+  --filters-btn-hover-color: #343a40;
+}
+
+:root {
+  /* The brand accent at the three alphas the site actually uses. Identical in
+     both themes, on purpose — see the note above. */
+  --accent-strong: hsla(182, 96%, 40%, 1);
+  --accent: hsla(182, 96%, 40%, 0.76);
+  --accent-faint: hsla(182, 96%, 40%, 0.2);
+
+  /* Text on the black CodeRain backdrop. */
+  --on-dark: rgba(255, 255, 255, 0.4);
+
+  /* The scroll-reveal transition, used by eight rules across five files. */
+  --reveal-transition: transform 0.4s ease-in, opacity 0.4s ease-in;
+
+  /* Clearance for the fixed navbar at the top of each section. */
+  --section-top-padding: 54px;
+}
