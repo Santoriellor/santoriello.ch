@@ -2,7 +2,7 @@
 
 ## Status
 
-Living document — appended to by Tasks 6, 8, 9, 10, 11 and 13.
+Living document — appended to by Tasks 4, 6, 8, 9, 10, 11 and 13.
 
 ## Purpose
 
@@ -98,3 +98,17 @@ the finding isn't lost between now and then.
     to `undefined` at runtime against v4, so none of the five metrics are
     ever actually reported — the `reportWebVitals()` call in
     `front/src/index.js:21` silently does nothing.
+
+- **A filter button's doubled accessible name has a space in it, not a bare
+  concatenation.** `front/src/components/MyWork.js:132-133` renders each
+  filter label twice, in a `.text-layer.default` and a `.text-layer.hover`
+  sibling `<div>` inside the `<button>`. Task 4's brief assumed the resulting
+  accessible name would be the label glued to itself (e.g. `"AngularAngular"`),
+  but the accessible-name computation (via `@testing-library/dom`'s
+  `dom-accessibility-api`) inserts a space between text drawn from separate
+  block-level elements, so the actual name is `"Angular Angular"` (space
+  between the two copies) for every filter button, including `"All All"`.
+  `front/src/components/MyWork.test.js` was written against the verified
+  space-separated names rather than the brief's assumed bare-concatenation
+  form. Task 8, which hides the duplicate `.text-layer` from assistive
+  technology, will update these queries regardless of the exact spacing.
