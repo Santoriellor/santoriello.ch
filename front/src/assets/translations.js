@@ -13,6 +13,7 @@ const translations = {
     myWork: "My Work",
     myWorkBtn: "Let's see it!",
     myWorkNoProjects: "No projects match this filter.",
+    aboutMePhotoAlt: "Portrait of Rémy Santoriello",
     contact: "Contact",
     contactMe: "Contact Me",
     contactText: "Have a question or want to work together?",
@@ -35,6 +36,7 @@ const translations = {
     myWork: "Projets",
     myWorkBtn: "Voyons ça!",
     myWorkNoProjects: "Aucun projet ne correspond à ce filtre.",
+    aboutMePhotoAlt: "Portrait de Rémy Santoriello",
     contact: "Contact",
     contactMe: "Me Contacter",
     contactText:
@@ -59,6 +61,7 @@ const translations = {
     myWork: "Projekte",
     myWorkBtn: "Lass es uns sehen!",
     myWorkNoProjects: "Kein Projekt entspricht diesem Filter.",
+    aboutMePhotoAlt: "Porträt von Rémy Santoriello",
     contact: "Kontakt",
     contactMe: "Kontaktiere Mich",
     contactText: "Haben Sie eine Frage oder möchten Sie zusammenarbeiten?",

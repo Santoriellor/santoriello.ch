@@ -50,7 +50,10 @@ const DropdownMenu = () => {
   return (
     <nav className={`navbar${isVisible ? "" : " hidden"}`}>
       <ThemeToggle />
-      <div className={`dropdown-links${menuOpen ? " open" : ""}`}>
+      <div
+        id="dropdown-links"
+        className={`dropdown-links${menuOpen ? " open" : ""}`}
+      >
         <a href="#home" onClick={() => setMenuOpen(false)}>
           {translate("home")}
         </a>
@@ -64,9 +67,16 @@ const DropdownMenu = () => {
           {translate("contact")}
         </a>
       </div>
-      <div className="toggle-burger" onClick={toggleMenu}>
+      <button
+        type="button"
+        className="toggle-burger"
+        aria-label="Menu"
+        aria-expanded={menuOpen}
+        aria-controls="dropdown-links"
+        onClick={toggleMenu}
+      >
         {menuOpen ? "✖" : "☰"}
-      </div>
+      </button>
       <LanguageToggle />
     </nav>
   );

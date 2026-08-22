@@ -43,11 +43,21 @@ test("there is exactly one navigation landmark", () => {
   expect(screen.getByRole("navigation")).toBeInTheDocument();
 });
 
-// Characterization, not endorsement: the page has four h1 elements and no main
-// landmark today. Task 8 adds <main>; it deliberately leaves the four h1
-// elements alone, and this assertion is updated there.
-test("the page has four h1 elements and no main landmark", () => {
+// Task 8 added the main landmark. The four h1 elements are deliberately left
+// alone: they carry no explicit font-size, so demoting them would shrink them.
+// See docs/decisions/0004-deferred-findings.md.
+test("the page has one main landmark wrapping the four sections", () => {
   const { container } = renderApp();
+  const main = container.querySelector("main");
+  expect(main).not.toBeNull();
+  expect([...main.querySelectorAll(":scope > section")].map((s) => s.id)).toEqual(
+    ["home", "about-me", "my-work", "contact"]
+  );
   expect(container.querySelectorAll("h1")).toHaveLength(4);
-  expect(container.querySelector("main")).toBeNull();
+});
+
+test("the html element carries the selected language", () => {
+  localStorage.setItem("language", "de");
+  renderApp();
+  expect(document.documentElement.lang).toBe("de");
 });

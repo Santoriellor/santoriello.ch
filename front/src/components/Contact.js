@@ -88,7 +88,6 @@ const Contact = () => {
             required
           />
           <textarea
-            type="text"
             name="message"
             placeholder={translate("contactMsg")}
             required

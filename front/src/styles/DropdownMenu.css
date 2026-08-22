@@ -42,6 +42,14 @@
 }
 
 .toggle-burger {
+  /* Reset the user-agent button styling; this element was a div until the
+     accessibility pass and must keep rendering exactly as it did. */
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  line-height: 1;
+
   display: none;
   position: absolute;
   left: 50%;
@@ -75,14 +83,22 @@
     padding: 10px;
     top: 50px;
     left: 0;
-    /* Clip-path hides the menu vertically */
+    /* Clip-path hides the menu vertically, but only visually: the links stay
+       in the DOM, focusable and exposed to assistive tech. Pair it with
+       visibility so a closed menu is truly hidden once the wipe-out finishes,
+       and truly shown from the first frame of the wipe-in — the delay is
+       timed to the clip-path transition below so the wipe animation itself
+       is unchanged. */
     clip-path: inset(0 0 100% 0);
-    transition: clip-path 0.4s ease-in-out;
+    visibility: hidden;
+    transition: clip-path 0.4s ease-in-out, visibility 0s linear 0.4s;
     z-index: 1000;
     overflow: visible;
   }
   .dropdown-links.open {
     clip-path: inset(0 0 0 0);
+    visibility: visible;
+    transition: clip-path 0.4s ease-in-out, visibility 0s linear 0s;
   }
   .dropdown-links a {
     width: 100%;

@@ -58,11 +58,15 @@ test("clicking a link closes the open menu", () => {
   );
 });
 
-// Characterization, not endorsement: the burger is a <div> with an onClick
-// today, so it is not focusable and exposes no role. Task 8 makes it a <button>
-// and updates this test.
-test("the burger is a div, not a button", () => {
+test("the burger is a real button that announces whether the menu is open", () => {
   const { container } = renderMenu();
-  expect(container.querySelector(".toggle-burger").tagName).toBe("DIV");
-  expect(screen.queryAllByRole("button")).toHaveLength(1); // only the language trigger
+  const burger = screen.getByRole("button", { name: "Menu" });
+  expect(burger.tagName).toBe("BUTTON");
+  expect(burger).toHaveAttribute("type", "button");
+  expect(burger).toHaveAttribute("aria-expanded", "false");
+  expect(burger).toHaveAttribute("aria-controls", "dropdown-links");
+  expect(container.querySelector("#dropdown-links")).not.toBeNull();
+
+  fireEvent.click(burger);
+  expect(burger).toHaveAttribute("aria-expanded", "true");
 });

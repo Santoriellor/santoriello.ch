@@ -56,7 +56,7 @@ const AboutMe = () => {
       <div className="separator"></div>
       <div className="about-content">
         <div className="about-description">
-          <img src="/images/me.png" alt="Your Name" />
+          <img src="/images/me.png" alt={translate("aboutMePhotoAlt")} />
           <h2>{translate("aboutMe")}</h2>
           <p style={{ whiteSpace: "pre-wrap" }}>
             {translate("aboutText1")}

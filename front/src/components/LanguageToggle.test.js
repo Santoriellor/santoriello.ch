@@ -21,16 +21,22 @@ test("the menu is closed until the trigger is clicked", () => {
   expect(screen.getByText("Deutsch")).toBeInTheDocument();
 });
 
-// Characterization, not endorsement: the trigger's only content is a flag SVG
-// and a "▾" glyph, so its accessible name is "▾". Task 8 gives it a real name
-// and updates this assertion.
-test("the trigger's accessible name is the chevron glyph", () => {
+test("the trigger names the current language and announces the menu state", () => {
   const { container } = render(
     <LanguageProvider>
       <LanguageToggle />
     </LanguageProvider>
   );
-  expect(container.querySelector(".lang-current").textContent).toBe("▾");
+  const trigger = screen.getByRole("button", { name: "Language: English" });
+  expect(trigger).toHaveAttribute("aria-expanded", "false");
+  expect(trigger).toHaveAttribute("aria-haspopup", "true");
+
+  fireEvent.click(trigger);
+  expect(trigger).toHaveAttribute("aria-expanded", "true");
+  expect(container.querySelector(".flag svg")).toHaveAttribute(
+    "aria-hidden",
+    "true"
+  );
 });
 
 test("choosing a language re-renders the page copy and persists the choice", () => {

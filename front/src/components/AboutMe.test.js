@@ -54,11 +54,12 @@ test("the portrait points at the public image", () => {
   );
 });
 
-// Characterization, not endorsement: the alt text is the Create React App
-// placeholder "Your Name". Task 8 replaces it and updates this test.
-test("the portrait's alt text is still the placeholder", () => {
+test("the portrait has real, translated alt text", () => {
   const { container } = renderAboutMe();
-  expect(container.querySelector("img")).toHaveAttribute("alt", "Your Name");
+  expect(container.querySelector("img")).toHaveAttribute(
+    "alt",
+    "Portrait of Rémy Santoriello"
+  );
 });
 
 test("the army link points at the public STAT page", () => {

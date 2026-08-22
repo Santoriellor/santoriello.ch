@@ -11,10 +11,12 @@ const App = () => {
     <>
       {/* Dropdown Menu */}
       <DropdownMenu />
-      <Home />
-      <AboutMe />
-      <MyWork />
-      <Contact />
+      <main>
+        <Home />
+        <AboutMe />
+        <MyWork />
+        <Contact />
+      </main>
     </>
   );
 };

@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import MyWork from "./MyWork";
 import { LanguageProvider } from "../contexts/LanguageContext";
+import { projects } from "../data/projects";
 
 const renderMyWork = () =>
   render(
@@ -47,42 +48,56 @@ test("the ten filter buttons are offered, in order", () => {
   ]);
 });
 
-// Each filter button renders its label twice, in a .default layer and a .hover
-// layer, so its accessible name is the label doubled — with a space between
-// the two copies, because the accessible-name algorithm inserts one between
-// text drawn from separate block-level elements. That is a defect; Task 8
-// hides the duplicate from assistive technology and updates this query.
-test("a filter button's accessible name is its label, doubled", () => {
+test("a filter button's accessible name is its label, once", () => {
   renderMyWork();
-  expect(
-    screen.getByRole("button", { name: "Angular Angular" })
-  ).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Angular" })).toBeInTheDocument();
 });
 
 test("filtering by Angular leaves only Space Invader", () => {
   const { container } = renderMyWork();
-  fireEvent.click(screen.getByRole("button", { name: "Angular Angular" }));
+  fireEvent.click(screen.getByRole("button", { name: "Angular" }));
   expect(cardNames(container)).toEqual(["Space Invader"]);
 });
 
 test("filtering by React leaves the two React projects", () => {
   const { container } = renderMyWork();
-  fireEvent.click(screen.getByRole("button", { name: "React React" }));
+  fireEvent.click(screen.getByRole("button", { name: "React" }));
   expect(cardNames(container)).toEqual(["La Ferme", "Workshop"]);
 });
 
 test("filtering by MySQL matches on the backend list too", () => {
   const { container } = renderMyWork();
-  fireEvent.click(screen.getByRole("button", { name: "MySQL MySQL" }));
+  fireEvent.click(screen.getByRole("button", { name: "MySQL" }));
   expect(cardNames(container)).toEqual(["Workshop", "S.I.R"]);
 });
 
 test("returning to All restores every project", () => {
   const { container } = renderMyWork();
-  fireEvent.click(screen.getByRole("button", { name: "PHP PHP" }));
+  fireEvent.click(screen.getByRole("button", { name: "PHP" }));
   expect(cardNames(container)).toEqual(["S.I.R"]);
-  fireEvent.click(screen.getByRole("button", { name: "All All" }));
+  fireEvent.click(screen.getByRole("button", { name: "All" }));
   expect(cardNames(container)).toHaveLength(4);
+});
+
+// All ten real filters match at least one project (see
+// docs/decisions/0004-deferred-findings.md), so the empty-filter state is
+// unreachable through the UI with real data. Force it by truncating the
+// shared projects array in place for the duration of this test — the export
+// binding is read-only but its contents are not — rather than adding a
+// test-only code path to MyWork.js. Task 6 renamed the translation key
+// myWorkNoProject -> myWorkNoProjects so this renders real copy instead of
+// the raw key; nothing committed asserted that until this test.
+test("the empty-filter message renders the translated copy, not the raw key", () => {
+  const saved = [...projects];
+  projects.length = 0;
+  try {
+    const { container } = renderMyWork();
+    expect(container.querySelector(".no-projects").textContent).toBe(
+      "No projects match this filter."
+    );
+  } finally {
+    projects.push(...saved);
+  }
 });
 
 test("every project link opens in a new tab and severs the opener", () => {

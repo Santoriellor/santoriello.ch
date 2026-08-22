@@ -86,7 +86,9 @@ const MyWork = () => {
               onClick={() => handleButtonClick(filter)}
             >
               <div className="text-layer default">{filter}</div>
-              <div className="text-layer hover">{filter}</div>
+              <div className="text-layer hover" aria-hidden="true">
+                {filter}
+              </div>
             </button>
           ))}
         </div>
