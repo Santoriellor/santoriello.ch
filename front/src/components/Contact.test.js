@@ -66,3 +66,27 @@ test("the footer renders inside the contact section", () => {
   const { container } = renderContact();
   expect(container.querySelector("#contact #footer")).not.toBeNull();
 });
+
+// Security fix, not characterization (Spec D8): this asserts the corrected
+// behaviour. The contact endpoint is public and unauthenticated by design, so
+// the honeypot is the only spam defence that lives in this repository.
+test("the form carries the Web3Forms honeypot field", () => {
+  const { container } = renderContact();
+  const honeypot = container.querySelector('input[name="botcheck"]');
+  expect(honeypot).not.toBeNull();
+  expect(honeypot).toHaveAttribute("type", "checkbox");
+  expect(honeypot).toHaveStyle({ display: "none" });
+});
+
+// display:none removes an element from the accessibility tree, not just the
+// visual layout, so a screen reader user never lands on it either — this is
+// asserted via queryByRole rather than trusting the CSS declaration alone.
+// tabIndex="-1" keeps it out of keyboard tab order too, and it is deliberately
+// not `required`, or a real (non-bot) submission would be blocked.
+test("the honeypot is invisible to assistive technology, out of tab order, and not required", () => {
+  const { container } = renderContact();
+  const honeypot = container.querySelector('input[name="botcheck"]');
+  expect(honeypot).not.toHaveAttribute("required");
+  expect(honeypot).toHaveAttribute("tabIndex", "-1");
+  expect(screen.queryByRole("checkbox")).toBeNull();
+});

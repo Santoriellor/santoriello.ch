@@ -59,6 +59,22 @@ const Contact = () => {
             name="access_key"
             value="c9e4e021-c095-4eb8-95f2-a93d49403bd6"
           />
+          {/*
+            Web3Forms honeypot. A real visitor never sees this field and never
+            checks it; a bot that fills every input does, and Web3Forms then
+            drops the submission. The access_key above is a public endpoint
+            identifier, not a secret — it must be in the bundle for the form to
+            work at all — so this is the only spam defence that can live in
+            this repository. Domain restriction and captcha are dashboard
+            settings; see docs/technical.md.
+          */}
+          <input
+            type="checkbox"
+            name="botcheck"
+            style={{ display: "none" }}
+            tabIndex="-1"
+            autoComplete="off"
+          />
           <input
             type="text"
             name="name"

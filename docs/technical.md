@@ -41,10 +41,20 @@ Rotation is therefore a dashboard action on web3forms.com, not a code change.
 Domain restriction and captcha are also dashboard settings, not something
 this repository configures.
 
-The real gap is that the form has no bot protection: no honeypot field, no
-CAPTCHA, nothing that distinguishes a script filling in `access_key` directly
-from a visitor using the page. See
-`docs/decisions/0004-deferred-findings.md`.
+The form carries Web3Forms' honeypot field: a `botcheck` checkbox, hidden with
+`style={{ display: "none" }}` (which also removes it from the accessibility
+tree and tab order), never `required`. A human never sees or fills it; a bot
+that fills every field in the form does, and Web3Forms silently drops any
+submission where it arrives non-empty. This is the only spam defence that can
+live in this repository — everything else is dashboard configuration on
+web3forms.com:
+
+- Restrict allowed domains for the access key in the Web3Forms dashboard, so
+  the key stops working when POSTed from anywhere but `santoriello.ch`.
+- Enable hCaptcha or Cloudflare Turnstile there if the honeypot proves
+  insufficient.
+
+See `docs/decisions/0004-deferred-findings.md`.
 
 ## CI/CD
 
