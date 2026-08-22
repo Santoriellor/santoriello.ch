@@ -91,18 +91,37 @@ source that contains only `docker-compose.yml`, and delete it. The asymmetry
 exists because the two calls have different-shaped sources (a directory
 versus a single file), not because one of them was forgotten.
 
-Later, Task 12 is expected to add `prettier --check` and `eslint` steps to
-this same `test` job, so formatting and lint violations block a deploy the
-same way a failing test does today. That is not yet the case as this
-document is written.
+Task 12 added `prettier --check` and `eslint` steps to this same `test` job,
+after `npm ci` and before the test step, so a formatting or lint violation now
+blocks a deploy the same way a failing test does.
 
 ## Formatting
 
-Formatting and linting are not yet enforced in `front/`: `package.json`
-declares only `"eslintConfig": { "extends": ["react-app", "react-app/jest"] }`
-(`front/package.json:28-31`), which is CRA's bundled ESLint config that runs
-as part of `react-scripts` compilation, and there is no Prettier
-configuration, no `.prettierrc`, and no standalone `eslint` script.
+`cd front && npm run format` rewrites every file under `src/**/*.{js,css,json}`
+with Prettier; `npm run format:check` runs the same check without writing,
+which is what CI runs.
+
+`cd front && npm run lint` runs ESLint (`eslint src --ext .js`) against
+`front/.eslintrc.json`, which extends `react-app`, `react-app/jest` and
+`prettier` — the last so `eslint-config-prettier` can switch off the
+stylistic rules that would otherwise argue with the formatter. This is the
+same `react-app`/`react-app/jest` rule set the inline `eslintConfig` key held
+before Task 12; no rule was added or promoted to error. One override exists:
+`testing-library/no-container` and `testing-library/no-node-access` are off
+for `*.test.js` files, because several characterization tests deliberately
+assert DOM structure (section order, the `main` landmark, the Web3Forms
+honeypot's attributes) that Testing Library's semantic queries have no
+faithful equivalent for; `react-scripts build` never linted test files in the
+first place, so this is not a change to what was previously enforced there.
+
+Prettier and `eslint-config-prettier` are pinned exactly (`3.4.2` and
+`9.1.0`), on purpose: a formatter or its config that drifts with a caret
+range produces spurious diffs in unrelated pull requests.
+
+The formatting sweep that reformatted the whole tree at once is recorded in
+`.git-blame-ignore-revs`. Every fresh clone needs the one-time
+`git config blame.ignoreRevsFile .git-blame-ignore-revs` for `git blame` to
+skip it.
 
 ## Assets
 
