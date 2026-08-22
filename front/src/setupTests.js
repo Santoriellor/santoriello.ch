@@ -2,7 +2,7 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
 // jsdom (react-scripts' default jest test environment) does not implement
 // IntersectionObserver. Home, AboutMe, MyWork and Contact all construct one
@@ -21,7 +21,7 @@ window.IntersectionObserver = IntersectionObserverStub;
 // inside DropdownMenu, part of App) reads it synchronously in a useEffect
 // to detect the OS color-scheme preference, so without this stub that
 // effect throws too. Always reports "no preference" (matches: false).
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: (query) => ({
     matches: false,

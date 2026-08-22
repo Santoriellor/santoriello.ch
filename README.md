@@ -2,8 +2,8 @@
 
 # santoriello.ch
 
-Portfolio index for the santoriello.ch estate — links to the other projects deployed alongside it.
-React (create-react-app), served by nginx.
+Rémy Santoriello's personal portfolio site: a single-page React app
+introducing him, his skills and his projects, with a way to get in touch.
 
 Live: <https://santoriello.ch>
 
@@ -15,11 +15,10 @@ npm ci
 npm start
 ```
 
-## Deployment
+## Documentation
 
-Pushing to `main` triggers `.github/workflows/deploy.yml`, which rsyncs `front/` and
-`docker-compose.yml` to the VPS and rebuilds the container there. A shared Traefik instance
-terminates TLS and applies the security-header middleware.
-
-The container runs nginx unprivileged as uid 101 on port 8080; the Traefik
-`loadbalancer.server.port` label must stay in step with it.
+- [docs/architecture.md](docs/architecture.md) — components, boundaries, data flow, deployment topology
+- [docs/design.md](docs/design.md) — domain model, product intent, key design decisions
+- [docs/technical.md](docs/technical.md) — build, configuration, CI/CD, the contact form
+- [docs/runbook.md](docs/runbook.md) — operating it: logs, redeploying, common incidents
+- [docs/decisions/](docs/decisions/) — architecture decision records, including deliberately deferred problems

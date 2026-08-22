@@ -1,0 +1,100 @@
+/*
+ * Rules used by more than one section. Imported by App.js immediately after
+ * App.css, so every component stylesheet loads after this file and can still
+ * override it at equal specificity.
+ */
+
+/*
+ * The outer <section> of About Me, My Work and Contact. The three differed only
+ * in their height rule, which stays in each component's own stylesheet:
+ *   .about-me  height: 100vh; cursor: default;
+ *   .my-work   min-height: 100vh;
+ *   .contact   height: 100vh;
+ */
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  padding-top: var(--section-top-padding);
+  overflow: hidden;
+  background-color: var(--background-color);
+}
+
+/*
+ * Scroll reveal. Each section's IntersectionObserver adds .animate to its
+ * descendants when the section is on screen and removes it when it leaves.
+ * Only the starting offset differs per element, so that stays in the component
+ * stylesheet; the transition and the end state are the same everywhere.
+ *
+ * translateX(0) and translateY(0) both produce the identity transform, so this
+ * one rule is correct for .project, which starts at translateY(80%).
+ *
+ * .contact-form is NOT a .reveal: it animates with scale and the popIn
+ * keyframes, not with a transition.
+ */
+.reveal {
+  opacity: 0;
+  transition: var(--reveal-transition);
+}
+
+.reveal.animate {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/*
+ * The rule under each section heading. It lives here rather than in App.css
+ * because its transition-delay must be declared AFTER .reveal's transition
+ * shorthand — a shorthand resets transition-delay to 0s, and App.css is loaded
+ * before this file.
+ */
+.separator {
+  width: 100px;
+  min-height: 5px;
+  border-radius: 5px;
+  background-color: var(--text-color);
+  transform: translateX(300%);
+  transition-delay: 0.1s;
+}
+
+/*
+ * The outlined call-to-action shared by the project cards and the contact form.
+ * Size, spacing and transition stay with each caller, which is where they
+ * differ.
+ */
+.btn-outline {
+  position: relative;
+  z-index: 2;
+  border: 2px solid var(--link-color);
+  border-radius: 5px;
+  font-size: 1.5rem;
+  color: var(--link-color);
+  cursor: pointer;
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background-color: var(--link-color);
+  color: var(--text-color);
+}
+
+/*
+ * Keyboard focus. There was no :focus or :focus-visible rule anywhere in this
+ * project before, and several controls suppress the user-agent outline.
+ *
+ * Two rings, white inside and black outside, on purpose: the page has both a
+ * near-white surface (#f9f9f9) and a near-black one (the CodeRain backdrop),
+ * and the brand accent measures only 2.11:1 against the light background — it
+ * cannot be the focus colour. Whichever backdrop a control sits on, one of the
+ * two rings contrasts with it. Do not "tidy" this into var(--link-color);
+ * see docs/decisions/0003-colour-contrast.md.
+ */
+:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px #000000;
+}

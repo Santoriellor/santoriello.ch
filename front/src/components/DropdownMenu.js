@@ -11,7 +11,7 @@ import LanguageToggle from "./LanguageToggle";
 
 import { LanguageContext } from "../contexts/LanguageContext";
 
-function DropdownMenu() {
+const DropdownMenu = () => {
   const homeRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,7 +31,7 @@ function DropdownMenu() {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     const homeSection = document.getElementById("home");
@@ -50,7 +50,10 @@ function DropdownMenu() {
   return (
     <nav className={`navbar${isVisible ? "" : " hidden"}`}>
       <ThemeToggle />
-      <div className={`dropdown-links${menuOpen ? " open" : ""}`}>
+      <div
+        id="dropdown-links"
+        className={`dropdown-links${menuOpen ? " open" : ""}`}
+      >
         <a href="#home" onClick={() => setMenuOpen(false)}>
           {translate("home")}
         </a>
@@ -64,12 +67,19 @@ function DropdownMenu() {
           {translate("contact")}
         </a>
       </div>
-      <div className="toggle-burger" onClick={toggleMenu}>
+      <button
+        type="button"
+        className="toggle-burger"
+        aria-label="Menu"
+        aria-expanded={menuOpen}
+        aria-controls="dropdown-links"
+        onClick={toggleMenu}
+      >
         {menuOpen ? "✖" : "☰"}
-      </div>
+      </button>
       <LanguageToggle />
     </nav>
   );
-}
+};
 
 export default DropdownMenu;

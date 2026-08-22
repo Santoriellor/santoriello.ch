@@ -33,7 +33,7 @@ const Contact = () => {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     if (sectionRef.current) {
@@ -44,11 +44,13 @@ const Contact = () => {
   }, []);
 
   return (
-    <section id="contact" className="contact" ref={sectionRef}>
-      <h1 className="contact-title">&lt; {translate("contactMe")} &gt;</h1>
-      <div className="separator"></div>
+    <section id="contact" className="section contact" ref={sectionRef}>
+      <h1 className="contact-title reveal">
+        &lt; {translate("contactMe")} &gt;
+      </h1>
+      <div className="separator reveal"></div>
       <div className="contact-content">
-        <p className="contact-descr">{translate("contactText")}</p>
+        <p className="contact-descr reveal">{translate("contactText")}</p>
         <form
           className="contact-form"
           method="POST"
@@ -58,6 +60,22 @@ const Contact = () => {
             type="hidden"
             name="access_key"
             value="c9e4e021-c095-4eb8-95f2-a93d49403bd6"
+          />
+          {/*
+            Web3Forms honeypot. A real visitor never sees this field and never
+            checks it; a bot that fills every input does, and Web3Forms then
+            drops the submission. The access_key above is a public endpoint
+            identifier, not a secret — it must be in the bundle for the form to
+            work at all — so this is the only spam defence that can live in
+            this repository. Domain restriction and captcha are dashboard
+            settings; see docs/technical.md.
+          */}
+          <input
+            type="checkbox"
+            name="botcheck"
+            style={{ display: "none" }}
+            tabIndex="-1"
+            autoComplete="off"
           />
           <input
             type="text"
@@ -72,12 +90,13 @@ const Contact = () => {
             required
           />
           <textarea
-            type="text"
             name="message"
             placeholder={translate("contactMsg")}
             required
           ></textarea>
-          <button type="submit">{translate("contactBtn")}</button>
+          <button type="submit" className="btn-outline">
+            {translate("contactBtn")}
+          </button>
         </form>
       </div>
       <Footer />

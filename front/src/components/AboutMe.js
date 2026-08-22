@@ -2,18 +2,7 @@ import React, { useEffect, useRef, useContext } from "react";
 import "../styles/AboutMe.css";
 
 import { LanguageContext } from "../contexts/LanguageContext";
-
-const skills = [
-  { name: "HTML/CSS", level: 90 },
-  { name: "JavaScript/Typescript", level: 85 },
-  { name: "React/Svelte", level: 75 },
-  { name: "Angular", level: 65 },
-  { name: "Django/SpringBoot", level: 70 },
-  { name: "Python, Java", level: 85 },
-  { name: "PHP", level: 75 },
-  { name: "MySQL/PostgreSQL", level: 75 },
-  { name: "NGINX/Docker/GIT", level: 65 },
-];
+import { skills } from "../data/skills";
 
 const AboutMe = () => {
   const sectionRef = useRef(null);
@@ -51,7 +40,7 @@ const AboutMe = () => {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     if (sectionRef.current) {
@@ -62,12 +51,12 @@ const AboutMe = () => {
   }, []);
 
   return (
-    <section id="about-me" className="about-me" ref={sectionRef}>
-      <h1 className="about-me-title">&lt; {translate("about")} &gt;</h1>
-      <div className="separator"></div>
+    <section id="about-me" className="section about-me" ref={sectionRef}>
+      <h1 className="about-me-title reveal">&lt; {translate("about")} &gt;</h1>
+      <div className="separator reveal"></div>
       <div className="about-content">
-        <div className="about-description">
-          <img src="/images/me.png" alt="Your Name" />
+        <div className="about-description reveal">
+          <img src="/images/me.png" alt={translate("aboutMePhotoAlt")} />
           <h2>{translate("aboutMe")}</h2>
           <p style={{ whiteSpace: "pre-wrap" }}>
             {translate("aboutText1")}
@@ -84,7 +73,7 @@ const AboutMe = () => {
             </a>
           </p>
         </div>
-        <div className="about-skills">
+        <div className="about-skills reveal">
           {skills.map((skill, index) => (
             <div key={index} className="skill">
               <span>{skill.name}</span>

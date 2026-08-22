@@ -9,7 +9,7 @@
   margin: 0;
   margin-top: auto;
   bottom: 0;
-  background-color: #343a40;
+  background-color: var(--background-menu);
   position: relative;
 }
 .footer-top {
@@ -31,7 +31,7 @@
   border-radius: 3px;
   text-decoration: none;
   font-size: 36px;
-  background: hsla(182, 96%, 40%, 1);
+  background: var(--accent-strong);
   color: #fff;
   display: inline-block;
   transition: transform 0.4s ease-in;
@@ -70,11 +70,11 @@
   transition: color 0.3s ease;
 }
 .social-link:hover {
-  color: hsla(182, 96%, 40%, 0.76);
+  color: var(--accent);
 }
 .footer-bottom {
   font-size: 14px;
 }
 .footer-bottom span {
-  color: hsla(182, 96%, 40%, 0.76);
+  color: var(--accent);
 }

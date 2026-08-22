@@ -1,24 +1,8 @@
 .contact {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
   height: 100vh;
-  padding: 0;
-  margin: 0;
-  padding-top: 54px;
-  overflow: hidden;
-  background-color: var(--background-color);
 }
 .contact-title {
   transform: translateX(-300%);
-  opacity: 0;
-  transition: transform 0.4s ease-in, opacity 0.4s ease-in;
-}
-.contact-title.animate {
-  transform: translateX(0);
-  opacity: 1;
 }
 .contact-content {
   display: flex;
@@ -34,13 +18,7 @@
   width: 100%;
   margin: 20px 0 30px 0;
   transform: translateX(-100%);
-  opacity: 0;
-  transition: transform 0.4s ease-in, opacity 0.4s ease-in;
   transition-delay: 0.2s;
-}
-.contact-descr.animate {
-  transform: translateX(0);
-  opacity: 1;
 }
 .contact-form {
   width: 100%;
@@ -95,25 +73,13 @@
   min-height: 200px;
 }
 .contact-form button {
-  position: relative;
   align-self: center;
   justify-self: center;
-  z-index: 2;
-  border: 2px solid var(--link-color);
-  border-radius: 5px;
-  font-size: 1.5rem;
-  color: var(--link-color);
   margin: 10px 0;
   padding: 0.75rem;
   width: 80%;
   max-width: 500px;
-  cursor: pointer;
-  background: transparent;
   transition: 0.4s ease;
-}
-.contact-form button:hover {
-  background-color: var(--link-color);
-  color: var(--text-color);
 }
 
 @keyframes popIn {
