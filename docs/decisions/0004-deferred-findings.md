@@ -137,3 +137,30 @@ the finding isn't lost between now and then.
   `--link-color` moves to `hsl(182, 96%, 70%)`. Unifying them is a visible
   change to the dark theme and belongs with the palette decision recorded in
   ADR `0003`.
+
+- **The `testing-library/no-container`/`no-node-access` override in
+  `front/.eslintrc.json` is scoped by a glob that also exempts future test
+  files.** Task 12 disabled `testing-library/no-container` and
+  `testing-library/no-node-access` for `**/*.test.js` to unblock the new
+  `npm run lint` CI gate against 83 pre-existing violations in the six
+  characterization test files that predate this rule ever being enforced
+  (see the commit body of `c424189`). The glob is file-shaped, not
+  site-shaped: any test file added later inherits the exemption even if it
+  never needed it. Worth narrowing (e.g. to the specific files, or converting
+  the override to targeted `eslint-disable-next-line` comments) whenever new
+  test files start landing, so the exemption doesn't quietly widen its own
+  scope over time.
+
+- **Six of the 83 suppressed `testing-library` sites are role-queryable and
+  could be converted opportunistically.** Most of the 83 assert DOM
+  structure, order, or CSS-attribute-selected fields with no faithful
+  Testing-Library-query equivalent (e.g. the Web3Forms honeypot's
+  `display:none` field is deliberately unreachable by any role query — that
+  is the behaviour under test). A minority, however, query elements
+  (buttons/links/etc.) that do have an accessible role and could be
+  rewritten with `getByRole`/`within` without changing what's asserted.
+  Left as `container`/DOM access for now rather than partially rewritten
+  inside the CI-gate commit, since converting only some sites while leaving
+  the override in place for the rest would produce a mixed, harder-to-audit
+  diff for no immediate benefit; a future pass through the six can tighten
+  the tests without touching the rule scope.
