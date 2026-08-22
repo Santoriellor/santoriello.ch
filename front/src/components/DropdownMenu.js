@@ -11,7 +11,7 @@ import LanguageToggle from "./LanguageToggle";
 
 import { LanguageContext } from "../contexts/LanguageContext";
 
-function DropdownMenu() {
+const DropdownMenu = () => {
   const homeRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -70,6 +70,6 @@ function DropdownMenu() {
       <LanguageToggle />
     </nav>
   );
-}
+};
 
 export default DropdownMenu;

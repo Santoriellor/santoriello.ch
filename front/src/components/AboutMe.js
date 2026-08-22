@@ -2,18 +2,7 @@ import React, { useEffect, useRef, useContext } from "react";
 import "../styles/AboutMe.css";
 
 import { LanguageContext } from "../contexts/LanguageContext";
-
-const skills = [
-  { name: "HTML/CSS", level: 90 },
-  { name: "JavaScript/Typescript", level: 85 },
-  { name: "React/Svelte", level: 75 },
-  { name: "Angular", level: 65 },
-  { name: "Django/SpringBoot", level: 70 },
-  { name: "Python, Java", level: 85 },
-  { name: "PHP", level: 75 },
-  { name: "MySQL/PostgreSQL", level: 75 },
-  { name: "NGINX/Docker/GIT", level: 65 },
-];
+import { skills } from "../data/skills";
 
 const AboutMe = () => {
   const sectionRef = useRef(null);
