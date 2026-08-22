@@ -72,11 +72,11 @@ const MyWork = () => {
         );
 
   return (
-    <section id="my-work" className="my-work" ref={sectionRef}>
-      <h1 className="my-work-title">&lt; {translate("myWork")} &gt;</h1>
-      <div className="separator"></div>
+    <section id="my-work" className="section my-work" ref={sectionRef}>
+      <h1 className="my-work-title reveal">&lt; {translate("myWork")} &gt;</h1>
+      <div className="separator reveal"></div>
       <div className="my-work-content">
-        <div className="filters">
+        <div className="filters reveal">
           {projectFilters.map((filter) => (
             <button
               key={filter}
@@ -96,7 +96,7 @@ const MyWork = () => {
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="project"
+              className="project reveal"
               style={{
                 backgroundImage: `url(${project.url})`,
               }}
@@ -110,7 +110,7 @@ const MyWork = () => {
                 href={project.http}
                 target="_blank"
                 rel="noreferrer"
-                className="project-button"
+                className="project-button btn-outline"
               >
                 {translate("myWorkBtn")}
               </a>

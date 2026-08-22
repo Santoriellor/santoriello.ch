@@ -44,11 +44,13 @@ const Contact = () => {
   }, []);
 
   return (
-    <section id="contact" className="contact" ref={sectionRef}>
-      <h1 className="contact-title">&lt; {translate("contactMe")} &gt;</h1>
-      <div className="separator"></div>
+    <section id="contact" className="section contact" ref={sectionRef}>
+      <h1 className="contact-title reveal">
+        &lt; {translate("contactMe")} &gt;
+      </h1>
+      <div className="separator reveal"></div>
       <div className="contact-content">
-        <p className="contact-descr">{translate("contactText")}</p>
+        <p className="contact-descr reveal">{translate("contactText")}</p>
         <form
           className="contact-form"
           method="POST"
@@ -92,7 +94,9 @@ const Contact = () => {
             placeholder={translate("contactMsg")}
             required
           ></textarea>
-          <button type="submit">{translate("contactBtn")}</button>
+          <button type="submit" className="btn-outline">
+            {translate("contactBtn")}
+          </button>
         </form>
       </div>
       <Footer />

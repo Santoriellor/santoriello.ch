@@ -1,24 +1,8 @@
 .my-work {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
   min-height: 100vh;
-  padding: 0;
-  margin: 0;
-  padding-top: 54px;
-  overflow: hidden;
-  background-color: var(--background-color);
 }
 .my-work-title {
   transform: translateX(-300%);
-  opacity: 0;
-  transition: transform 0.4s ease-in, opacity 0.4s ease-in;
-}
-.my-work-title.animate {
-  transform: translateX(0);
-  opacity: 1;
 }
 .my-work-content {
   display: flex;
@@ -38,13 +22,7 @@
   justify-content: center;
   margin: 2rem 0;
   transform: translateX(-60%);
-  opacity: 0;
-  transition: transform 0.4s ease-in, opacity 0.4s ease-in;
   transition-delay: 0.2s;
-}
-.filters.animate {
-  transform: translateX(0);
-  opacity: 1;
 }
 .filters button {
   position: relative;
@@ -157,12 +135,7 @@
   position: relative;
   overflow: hidden;
   transform: translateY(80%);
-  opacity: 0;
   transition: transform 0.4s ease-in, opacity 0.4s ease-in, box-shadow 0.3s ease;
-}
-.project.animate {
-  transform: translateY(0);
-  opacity: 1;
 }
 .project::before {
   content: "";
@@ -206,26 +179,14 @@
 }
 .project-button {
   display: inline-block;
-  position: relative;
-  z-index: 2;
   bottom: 50px;
-  border: 2px solid var(--link-color);
-  border-radius: 5px;
-  font-size: 1.5rem;
   text-decoration: none;
-  color: var(--link-color);
   margin: 10px auto 0;
   padding: 13px;
   width: 180px;
   transform: translateY(50px);
   transition: all 0.4s ease;
   opacity: 0;
-  cursor: pointer;
-  background: transparent;
-}
-.project-button:hover {
-  background-color: var(--link-color);
-  color: var(--text-color);
 }
 .project:hover .project-description,
 .project:hover .project-button {

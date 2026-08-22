@@ -51,11 +51,13 @@ const AboutMe = () => {
   }, []);
 
   return (
-    <section id="about-me" className="about-me" ref={sectionRef}>
-      <h1 className="about-me-title">&lt; {translate("about")} &gt;</h1>
-      <div className="separator"></div>
+    <section id="about-me" className="section about-me" ref={sectionRef}>
+      <h1 className="about-me-title reveal">
+        &lt; {translate("about")} &gt;
+      </h1>
+      <div className="separator reveal"></div>
       <div className="about-content">
-        <div className="about-description">
+        <div className="about-description reveal">
           <img src="/images/me.png" alt={translate("aboutMePhotoAlt")} />
           <h2>{translate("aboutMe")}</h2>
           <p style={{ whiteSpace: "pre-wrap" }}>
@@ -73,7 +75,7 @@ const AboutMe = () => {
             </a>
           </p>
         </div>
-        <div className="about-skills">
+        <div className="about-skills reveal">
           {skills.map((skill, index) => (
             <div key={index} className="skill">
               <span>{skill.name}</span>
