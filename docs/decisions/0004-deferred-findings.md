@@ -121,6 +121,14 @@ the finding isn't lost between now and then.
   thing on the page. Throttling it is a performance change, and performance
   tuning is out of scope for this cycle (estate spec §7).
 
+- **`front/public/manifest.json`'s `theme_color` and `front/public/index.html`'s
+  `<meta name="theme-color">` are coupled and must stay in agreement.** Task
+  11 changed only `manifest.json`'s `short_name` and `name` (the CRA
+  boilerplate labels an installed home-screen icon would show); its
+  `theme_color` (`#000000`) was left untouched because `index.html:7`
+  declares the identical value in its `<meta name="theme-color">` tag, and
+  editing one without the other would make them disagree.
+
 - **`--accent`, `--accent-strong` and `--accent-faint` deliberately do not
   switch with the theme, while `--link-color` does.** That is what the code
   did before this cycle: `Footer.css` and `Home.css` hard-coded the
