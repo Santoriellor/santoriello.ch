@@ -112,3 +112,11 @@ the finding isn't lost between now and then.
   space-separated names rather than the brief's assumed bare-concatenation
   form. Task 8, which hides the duplicate `.text-layer` from assistive
   technology, will update these queries regardless of the exact spacing.
+
+- **`CodeRain` re-renders up to twenty nodes on every `mousemove`.**
+  `front/src/components/CodeRain.js` also attaches `mousemove` and `mouseout`
+  listeners on `window` and calls `setMousePos` on every mouse move,
+  re-rendering up to twenty absolutely positioned nodes per event. It is
+  cleaned up correctly, so it is not a leak, but it is the most expensive
+  thing on the page. Throttling it is a performance change, and performance
+  tuning is out of scope for this cycle (estate spec §7).

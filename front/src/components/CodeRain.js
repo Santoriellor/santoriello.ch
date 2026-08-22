@@ -135,26 +135,29 @@ const CodeRain = () => {
     }; // Clean up listeners
   }, []);
 
-  // Use requestAnimationFrame for smoother movement
-  const moveDrops = () => {
-    setDrops((prevDrops) =>
-      prevDrops.map((drop) => ({
-        ...drop,
-        top: drop.top + drop.speed, // Move down by 5px per frame
-      }))
-    );
-  };
-
-  // Request animation frame to make the movement smoother
+  // Move every drop down by its own speed, once per frame. moveDrops lives
+  // inside the effect so the effect owns everything it uses and the dependency
+  // array can honestly be empty; frameId holds the id that cancels the loop.
   useEffect(() => {
-    const animate = () => {
-      moveDrops();
-      requestAnimationFrame(animate); // Continue the animation
+    let frameId = 0;
+
+    const moveDrops = () => {
+      setDrops((prevDrops) =>
+        prevDrops.map((drop) => ({
+          ...drop,
+          top: drop.top + drop.speed,
+        }))
+      );
     };
 
-    requestAnimationFrame(animate); // Start animation
+    const animate = () => {
+      moveDrops();
+      frameId = requestAnimationFrame(animate);
+    };
 
-    return () => cancelAnimationFrame(animate); // Clean up the animation
+    frameId = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(frameId);
   }, []);
 
   return (
