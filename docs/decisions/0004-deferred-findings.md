@@ -14,15 +14,6 @@ the finding isn't lost between now and then.
 
 ## Findings
 
-- **The staggered project animation is already dead.**
-  `front/src/styles/MyWork.css:111-124` sets `transition-delay` on
-  `.project:nth-child(1)` through `.project:nth-child(4)` (0s, 0.1s, 0.2s,
-  0.3s), but `.project` at line 126 then sets the `transition` shorthand,
-  which resets `transition-delay` back to its default (`0s`) because the
-  shorthand always sets every sub-property it doesn't mention. The four
-  cards therefore animate together today, not staggered. Restoring the
-  stagger is a visible change and is out of scope for this cycle.
-
 - **`font-family: "Ubuntu"` names a font that is never loaded.**
   `front/src/App.css:8` sets it on `body` with no fallback stack, and there
   is no `@font-face` rule and no web-font `<link>` in
@@ -31,11 +22,17 @@ the finding isn't lost between now and then.
   Ubuntu installed locally get the browser default font. Task 9 deleted
   `front/src/index.css` (its two font-smoothing declarations moved into
   `App.css:15-16`; its system font-stack fallback
-  `-apple-system, BlinkMacSystemFont, 'Segoe UI', ...` was **not** carried
-  over — it is simply gone, not shadowed). Adding a fallback stack to the
-  `Ubuntu` declaration would change the rendered typeface on most visitors'
-  machines (from the OS default they get today to whatever the fallback
-  stack resolves to), so it is not done here.
+  `-apple-system, BlinkMacSystemFont, 'Segoe UI', ...` was not carried
+  over). That fallback stack was already dead before the deletion, not
+  merely "not carried over": both `body` rules are the same specificity
+  (0,0,1) — a bare element selector — and `App.js` is imported after
+  `./index.css` in `index.js`, so `App.css`'s `body { font-family: "Ubuntu"
+  }` always loaded later in the cascade and already won over `index.css`'s
+  fallback stack, deletion or not. That is why removing the file produced
+  no visual change. Adding a fallback stack to the `Ubuntu` declaration
+  would change the rendered typeface on most visitors' machines (from the
+  OS default they get today to whatever the fallback stack resolves to), so
+  it is not done here.
 
 - **The empty-filter state is unreachable.** Every one of the ten filters
   defined at `front/src/data/projects.js:52-63` (`All` plus nine tech tags)
