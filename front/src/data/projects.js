@@ -51,7 +51,6 @@ export const projects = [
     name: "Pantry",
     front: ["Typescript", "Angular"],
     back: ["Java", "SpringBoot", "PostgreSQL"],
-    // Placeholder image - swap for a real screenshot of the app.
     url: "/images/projects/pantry.jpg",
     http: "https://pantry.santoriello.ch/",
   },

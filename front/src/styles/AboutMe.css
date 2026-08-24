@@ -1,5 +1,9 @@
 .about-me {
-  height: 100vh;
+  /* min-height, not height: the section should still fill the viewport when the
+     description is short, but a fixed 100vh clipped the last lines once the
+     About text grew. The mobile media query below already used height: auto for
+     the same reason. */
+  min-height: 100vh;
   cursor: default;
 }
 .about-me-title {
