@@ -62,6 +62,21 @@ test("the portrait has real, translated alt text", () => {
   );
 });
 
+// Asserts the whole list rather than the first match: the description now
+// carries three links, and a first-match query would silently keep passing if
+// one of them were reordered or dropped.
+test("the description links point where they claim, in order", () => {
+  const { container } = renderAboutMe();
+  const hrefs = [...container.querySelectorAll(".description-links")].map((a) =>
+    a.getAttribute("href"),
+  );
+  expect(hrefs).toEqual([
+    "https://www.defense.gouv.fr/terre/section-technique-larmee-terre-stat",
+    "https://www.ibm.com/quantum/quantum-safe",
+    "#contact",
+  ]);
+});
+
 test("the army link points at the public STAT page", () => {
   const { container } = renderAboutMe();
   const link = container.querySelector(".description-links");

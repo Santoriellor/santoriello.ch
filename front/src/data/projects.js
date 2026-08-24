@@ -46,6 +46,17 @@ export const projects = [
     url: "/images/projects/space-multi.jpg",
     http: "https://simulti.santoriello.ch/",
   },
+  /* Uncomment once pantry.santoriello.ch is deployed - until then `http` would
+     be a dead link on a live page. The image is a placeholder; replace it with
+     a real screenshot at the same time.
+  {
+    id: 6,
+    name: "Pantry",
+    front: ["Typescript", "Angular"],
+    back: ["Java", "SpringBoot", "PostgreSQL"],
+    url: "/images/projects/pantry.jpg",
+    http: "https://pantry.santoriello.ch/",
+  }, */
 ];
 
 /** "All" is special-cased in MyWork; the rest are matched against front/back. */

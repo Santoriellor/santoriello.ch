@@ -67,6 +67,13 @@ const AboutMe = () => {
               {translate("aboutText2")}
             </a>
             {translate("aboutText3")}
+            <a
+              className="description-links"
+              href="https://www.ibm.com/quantum/quantum-safe"
+            >
+              {translate("aboutText4")}
+            </a>
+            {translate("aboutText5")}
             <br />
             <a className="description-links" href="#contact">
               {translate("aboutTextContact")}
