@@ -62,14 +62,14 @@ const AboutMe = () => {
             {translate("aboutText1")}
             <a
               className="description-links"
-              href="https://www.defense.gouv.fr/terre/section-technique-larmee-terre-stat"
+              href="https://www.ibm.com/quantum/quantum-safe"
             >
               {translate("aboutText2")}
             </a>
             {translate("aboutText3")}
             <a
               className="description-links"
-              href="https://www.ibm.com/quantum/quantum-safe"
+              href="https://www.defense.gouv.fr/terre/section-technique-larmee-terre-stat"
             >
               {translate("aboutText4")}
             </a>

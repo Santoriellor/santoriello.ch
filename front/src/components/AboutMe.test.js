@@ -71,16 +71,16 @@ test("the description links point where they claim, in order", () => {
     a.getAttribute("href"),
   );
   expect(hrefs).toEqual([
-    "https://www.defense.gouv.fr/terre/section-technique-larmee-terre-stat",
     "https://www.ibm.com/quantum/quantum-safe",
+    "https://www.defense.gouv.fr/terre/section-technique-larmee-terre-stat",
     "#contact",
   ]);
 });
 
 test("the army link points at the public STAT page", () => {
   const { container } = renderAboutMe();
-  const link = container.querySelector(".description-links");
-  expect(link).toHaveAttribute(
+  const links = [...container.querySelectorAll(".description-links")];
+  expect(links[1]).toHaveAttribute(
     "href",
     "https://www.defense.gouv.fr/terre/section-technique-larmee-terre-stat",
   );
