@@ -19,13 +19,14 @@ beforeEach(() => {
   localStorage.clear();
 });
 
-test("four projects render by default, in order", () => {
+test("five projects render by default, in order", () => {
   const { container } = renderMyWork();
   expect(cardNames(container)).toEqual([
     "La Ferme",
     "Workshop",
     "S.I.R",
     "Space Invader",
+    "Pantry",
   ]);
 });
 
@@ -53,10 +54,10 @@ test("a filter button's accessible name is its label, once", () => {
   expect(screen.getByRole("button", { name: "Angular" })).toBeInTheDocument();
 });
 
-test("filtering by Angular leaves only Space Invader", () => {
+test("filtering by Angular leaves the two Angular projects", () => {
   const { container } = renderMyWork();
   fireEvent.click(screen.getByRole("button", { name: "Angular" }));
-  expect(cardNames(container)).toEqual(["Space Invader"]);
+  expect(cardNames(container)).toEqual(["Space Invader", "Pantry"]);
 });
 
 test("filtering by React leaves the two React projects", () => {
@@ -76,7 +77,7 @@ test("returning to All restores every project", () => {
   fireEvent.click(screen.getByRole("button", { name: "PHP" }));
   expect(cardNames(container)).toEqual(["S.I.R"]);
   fireEvent.click(screen.getByRole("button", { name: "All" }));
-  expect(cardNames(container)).toHaveLength(4);
+  expect(cardNames(container)).toHaveLength(5);
 });
 
 // All ten real filters match at least one project (see
@@ -103,7 +104,7 @@ test("the empty-filter message renders the translated copy, not the raw key", ()
 test("every project link opens in a new tab and severs the opener", () => {
   const { container } = renderMyWork();
   const links = [...container.querySelectorAll("a.project-button")];
-  expect(links).toHaveLength(4);
+  expect(links).toHaveLength(5);
   links.forEach((a) => {
     expect(a).toHaveAttribute("target", "_blank");
     expect(a.getAttribute("rel")).toMatch(/noreferrer|noopener/);
@@ -113,5 +114,6 @@ test("every project link opens in a new tab and severs the opener", () => {
     "https://workshop.santoriello.ch",
     "https://www.defense.gouv.fr/terre/section-technique-larmee-terre-stat/",
     "https://simulti.santoriello.ch/",
+    "https://pantry.santoriello.ch/",
   ]);
 });
