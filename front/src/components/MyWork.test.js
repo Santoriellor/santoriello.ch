@@ -19,7 +19,7 @@ beforeEach(() => {
   localStorage.clear();
 });
 
-test("five projects render by default, in order", () => {
+test("six projects render by default, in order", () => {
   const { container } = renderMyWork();
   expect(cardNames(container)).toEqual([
     "La Ferme",
@@ -27,6 +27,7 @@ test("five projects render by default, in order", () => {
     "S.I.R",
     "Space Invader",
     "Pantry",
+    "IBM Quantum Safe",
   ]);
 });
 
@@ -77,7 +78,7 @@ test("returning to All restores every project", () => {
   fireEvent.click(screen.getByRole("button", { name: "PHP" }));
   expect(cardNames(container)).toEqual(["S.I.R"]);
   fireEvent.click(screen.getByRole("button", { name: "All" }));
-  expect(cardNames(container)).toHaveLength(5);
+  expect(cardNames(container)).toHaveLength(6);
 });
 
 // All ten real filters match at least one project (see
@@ -104,7 +105,7 @@ test("the empty-filter message renders the translated copy, not the raw key", ()
 test("every project link opens in a new tab and severs the opener", () => {
   const { container } = renderMyWork();
   const links = [...container.querySelectorAll("a.project-button")];
-  expect(links).toHaveLength(5);
+  expect(links).toHaveLength(6);
   links.forEach((a) => {
     expect(a).toHaveAttribute("target", "_blank");
     expect(a.getAttribute("rel")).toMatch(/noreferrer|noopener/);
@@ -115,5 +116,6 @@ test("every project link opens in a new tab and severs the opener", () => {
     "https://www.defense.gouv.fr/terre/section-technique-larmee-terre-stat/",
     "https://simulti.santoriello.ch/",
     "https://pantry.santoriello.ch/",
+    "https://www.ibm.com/quantum/quantum-safe",
   ]);
 });

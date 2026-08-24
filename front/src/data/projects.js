@@ -54,6 +54,19 @@ export const projects = [
     url: "/images/projects/pantry.jpg",
     http: "https://pantry.santoriello.ch/",
   },
+  // Current work rather than a personal project, so `http` points at IBM's own
+  // page - the same shape as S.I.R, which links to the French Army rather than
+  // to a running app. Quarkus and Svelte are card labels only, not filter
+  // buttons, exactly as HTML/CSS/JavaScript already are; the card stays
+  // reachable through the Java and PostgreSQL filters.
+  {
+    id: 7,
+    name: "IBM Quantum Safe",
+    front: ["JavaScript", "Svelte"],
+    back: ["Java", "Quarkus", "PostgreSQL"],
+    url: "/images/projects/ibm-quantum-safe.jpg",
+    http: "https://www.ibm.com/quantum/quantum-safe",
+  },
 ];
 
 /** "All" is special-cased in MyWork; the rest are matched against front/back. */
