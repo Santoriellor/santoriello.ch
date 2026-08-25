@@ -46,16 +46,14 @@ export const projects = [
     url: "/images/projects/space-multi.jpg",
     http: "https://simulti.santoriello.ch/",
   },
-    /*
-  {
+  /* {
     id: 6,
     name: "Pantry",
     front: ["Typescript", "Angular"],
     back: ["Java", "SpringBoot", "PostgreSQL"],
     url: "/images/projects/pantry.jpg",
     http: "https://pantry.santoriello.ch/",
-  },
-    */
+  }, */
   // Current work rather than a personal project, so `http` points at IBM's own
   // page - the same shape as S.I.R, which links to the French Army rather than
   // to a running app. Quarkus and Svelte are card labels only, not filter
