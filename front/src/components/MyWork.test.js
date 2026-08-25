@@ -19,14 +19,13 @@ beforeEach(() => {
   localStorage.clear();
 });
 
-test("six projects render by default, in order", () => {
+test("five projects render by default, in order", () => {
   const { container } = renderMyWork();
   expect(cardNames(container)).toEqual([
     "La Ferme",
     "Workshop",
     "S.I.R",
     "Space Invader",
-    "Pantry",
     "IBM Quantum Safe",
   ]);
 });
@@ -115,7 +114,6 @@ test("every project link opens in a new tab and severs the opener", () => {
     "https://workshop.santoriello.ch",
     "https://www.defense.gouv.fr/terre/section-technique-larmee-terre-stat/",
     "https://simulti.santoriello.ch/",
-    "https://pantry.santoriello.ch/",
     "https://www.ibm.com/quantum/quantum-safe",
   ]);
 });
